@@ -94,7 +94,7 @@
 {% block scripts %}
     {{ super() }}
     <script type="text/javascript">
-       var socket = io.connect( window.location.protocol + '//' + window.location.host + '/chat');
+       var socket = io('/chat');
         var room_id ="{{room_id}}";
         var room_name ="{{room_name}}";
         var user_url = "{{ url_for('chat.get_users') }}";
