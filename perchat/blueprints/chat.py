@@ -91,6 +91,7 @@ def home():
 
     user_amount = User.query.count()
     # rooms = Room.query.order_by(Room.timestamp.asc())
+
     userhasroom = User_Has_Room.query.filter_by(user_id=current_user.id, room_type=0).all()
     admin_rooms = []
     for r in userhasroom:

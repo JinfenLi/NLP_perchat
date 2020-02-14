@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa7a9509-edec-4d77-8b3f-be1563e29f58" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/perchat/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/static/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data.db" beforeDir="false" afterPath="$PROJECT_DIR$/data.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/perchat/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,8 +25,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/perchat/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
-              <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+            <state relative-caret-position="163">
+              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
             </state>
           </provider>
         </entry>
@@ -32,7 +34,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/perchat/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
+            <state relative-caret-position="6870">
               <caret line="468" column="86" selection-start-line="468" selection-start-column="68" selection-end-line="468" selection-end-column="86" />
               <folding>
                 <element signature="e#188#221#0" expanded="true" />
@@ -44,7 +46,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/perchat/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-18">
+            <state relative-caret-position="150">
               <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
               <folding>
                 <element signature="e#188#197#0" expanded="true" />
@@ -56,7 +58,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wsgi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
+            <state relative-caret-position="195">
               <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -65,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/perchat/templates/chat/room_message.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="96" column="30" lean-forward="true" selection-start-line="96" selection-start-column="24" selection-end-line="96" selection-end-column="30" />
+            <state relative-caret-position="475">
+              <caret line="96" column="98" selection-start-line="96" selection-start-column="98" selection-end-line="96" selection-end-column="98" />
             </state>
           </provider>
         </entry>
@@ -77,8 +79,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/perchat/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="172" column="76" lean-forward="true" selection-start-line="172" selection-start-column="76" selection-end-line="172" selection-end-column="76" />
+            <state relative-caret-position="2580">
+              <caret line="172" column="76" selection-start-line="172" selection-start-column="76" selection-end-line="172" selection-end-column="76" />
             </state>
           </provider>
         </entry>
@@ -86,7 +88,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/perchat/extensions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
+            <state relative-caret-position="150">
               <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="35" />
             </state>
           </provider>
@@ -101,11 +103,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/perchat/static/js/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="93" selection-start-line="1" selection-start-column="93" selection-end-line="1" selection-end-column="93" />
+            <state relative-caret-position="257">
+              <caret line="281" column="13" selection-start-line="281" selection-start-column="13" selection-end-line="281" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -113,7 +115,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/perchat/MLmodels/train.tsv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
+            <state relative-caret-position="199740">
               <caret line="13316" column="1" selection-start-line="13316" selection-end-line="13316" selection-end-column="1" />
             </state>
           </provider>
@@ -197,7 +199,6 @@
         <option value="$PROJECT_DIR$/perchat/models.py" />
         <option value="$PROJECT_DIR$/perchat/static/css/style.css" />
         <option value="$PROJECT_DIR$/perchat/templates/base.html" />
-        <option value="$PROJECT_DIR$/perchat/templates/chat/room_message.html" />
         <option value="$PROJECT_DIR$/perchat/blueprints/admin.py" />
         <option value="$PROJECT_DIR$/perchat/MLmodels/train.csv" />
         <option value="$PROJECT_DIR$/perchat/MLmodels/train.tsv" />
@@ -207,8 +208,9 @@
         <option value="$PROJECT_DIR$/perchat/blueprints/chat.py" />
         <option value="$PROJECT_DIR$/perchat/__init__.py" />
         <option value="$PROJECT_DIR$/wsgi.py" />
-        <option value="$PROJECT_DIR$/perchat/settings.py" />
+        <option value="$PROJECT_DIR$/perchat/templates/chat/room_message.html" />
         <option value="$PROJECT_DIR$/perchat/static/js/script.js" />
+        <option value="$PROJECT_DIR$/perchat/settings.py" />
       </list>
     </option>
   </component>
@@ -223,9 +225,8 @@
       <path value="$PROJECT_DIR$/perchat/static/semantic-ui/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="57" />
-    <option name="y" value="38" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="794" />
   </component>
@@ -235,7 +236,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -290,6 +290,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -434,15 +435,16 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="794" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26752505" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27110156" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Project Explorer" order="2" />
       <window_info id="Job Explorer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32905984" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32905984" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -562,9 +564,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="24" column="39" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
-          <folding>
-            <element signature="e#39#57#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -579,9 +578,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="246">
           <caret line="140" column="34" selection-start-line="140" selection-start-column="34" selection-end-line="140" selection-end-column="34" />
-          <folding>
-            <element signature="e#188#282#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -592,42 +588,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/perchat/BERTmodel/bert_config.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/perchat/bert_tc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13">
-          <caret line="1014" column="47" lean-forward="true" selection-start-line="1014" selection-start-column="47" selection-end-line="1014" selection-end-column="47" />
-          <folding>
-            <element signature="e#646#684#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/perchat/bert_predict.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
-          <folding>
-            <element signature="e#646#684#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/perchat/MLmodels/train.tsv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="13316" column="1" selection-start-line="13316" selection-end-line="13316" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/perchat/BERTmodel/bert_config.json" />
+    <entry file="file://$PROJECT_DIR$/perchat/bert_tc.py" />
+    <entry file="file://$PROJECT_DIR$/perchat/bert_predict.py" />
     <entry file="file://$PROJECT_DIR$/perchat/blueprints/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/perchat/static/js/socket.io.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="175" selection-start-column="175" selection-end-column="175" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/perchat/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
+        <state relative-caret-position="6870">
           <caret line="468" column="86" selection-start-line="468" selection-start-column="68" selection-end-line="468" selection-end-column="86" />
           <folding>
             <element signature="e#188#221#0" expanded="true" />
@@ -635,9 +611,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/perchat/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+          <folding>
+            <element signature="e#188#197#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/perchat/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2580">
+          <caret line="172" column="76" selection-start-line="172" selection-start-column="76" selection-end-line="172" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/perchat/extensions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
+        <state relative-caret-position="150">
           <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="35" />
         </state>
       </provider>
@@ -649,58 +652,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/perchat/__init__.py">
+    <entry file="file://$PROJECT_DIR$/perchat/MLmodels/train.tsv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-18">
-          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
-          <folding>
-            <element signature="e#188#197#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/perchat/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/perchat/static/js/socket.io.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="175" selection-start-column="175" selection-end-column="175" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/perchat/templates/chat/room_message.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="96" column="30" lean-forward="true" selection-start-line="96" selection-start-column="24" selection-end-line="96" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/perchat/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="172" column="76" lean-forward="true" selection-start-line="172" selection-start-column="76" selection-end-line="172" selection-end-column="76" />
+        <state relative-caret-position="199740">
+          <caret line="13316" column="1" selection-start-line="13316" selection-end-line="13316" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/perchat/static/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="93" selection-start-line="1" selection-start-column="93" selection-end-line="1" selection-end-column="93" />
+        <state relative-caret-position="257">
+          <caret line="281" column="13" selection-start-line="281" selection-start-column="13" selection-end-line="281" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/perchat/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/perchat/templates/chat/room_message.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="96" column="98" selection-start-line="96" selection-start-column="98" selection-end-line="96" selection-end-column="98" />
         </state>
       </provider>
     </entry>
