@@ -1,0 +1,28 @@
+<div class="msg-box">
+                    <div class="picture">
+                        <img class="pop-card" data-position="right center" data-offset="-40"
+                             data-href="{{ url_for('chat.get_profile', user_id=message.sender.id) }}"
+                             src="{{ message.sender.gravatar }}">
+                    </div>
+                    <div class="msg">
+                        <span class="nickname">{{ message.sender.nickname }}</span>
+                        <small class="timestamp">{{ moment(message.timestamp).format('lll') }}</small>
+                        {% if message.persuasive %}
+                        <span class="label label-warning">persuasive</span>
+                        {%else%}
+                        <span class="label label-warning">non-persuasive</span>
+                        {% endif %}
+                        <span class="message-body">{{ message.body|safe }}</span>
+                    </div>
+                    {% if current_user.is_authenticated %}
+                    <div class="ui icon left center pointing dropdown ellipsis-icon">
+                                <i class="ellipsis horizontal icon"></i>
+                                <div class="menu" data-offset="-33">
+                                    <div class="item quote-button">
+                                        <i class="quote left icon"></i> Quote
+                                    </div>
+                                </div>
+                    </div>
+                    {% endif %}
+
+                </div>

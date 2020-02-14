@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+    {% block head %}
+        <title>{% block title %}{% block page_title %}{% endblock %} - User{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{{ url_for('static', filename='logo.png') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='semantic-ui/semantic.min.css') }}">
+    {% endblock %}
+
+{% block nav %}
+    <div class="ui top fixed borderless menu">
+        <a class="item" id="toggle-sidebar">
+                <i class="sidebar icon"></i>
+            </a>
+        <a class="item catchat" href="{{ url_for('chat.index') }}">
+            <img src="{{ url_for('static', filename='logo.png') }}">
+            <span>PersuasiveChat</span>
+        </a>
+
+
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="ui labeled icon vertical inverted demo menu sidebar">
+    <a class="item" href="{{ url_for('chat.index') }}">
+        <i class="home secret icon"></i>
+        Rooms
+    </a>
+    {%if current_user.is_admin %}
+    <a class="item" href="{{ url_for('admin.waitinglist') }}" target="_blank">
+        <i class="check icon"></i>
+        Waiting List
+    </a>
+    {% else %}
+    <a class="item" href="{{ url_for('admin.waitinglist') }}" target="_blank">
+        <i class="wait icon"></i>
+        Waiting List
+    </a>
+    {% endif%}
+    <a class="item" href="{{ url_for('chat.get_users') }}" target="_blank">
+        <i class="user icon"></i>
+        Private Chat
+    </a>
+    {% if current_user.is_authenticated %}
+        <a class="item" href="{{ url_for('chat.profile') }}">
+            <i class="setting icon"></i>
+            Profile
+        </a>
+    {% endif %}
+    <a class="item" id="show-help-modal">
+        <i class="help icon"></i>
+        Help
+    </a>
+    {% if current_user.is_authenticated %}
+        <a class="item" href="{{ url_for('auth.logout') }}">
+            <i class="power off icon"></i>
+            Sign out</a>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="pusher">
+        <div class="chat-box">
+    <div class="container my-4">
+        <table class="table table-striped table-bordered grid" border="1" id="checkroomtable">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+
+                    <th>Private Chat</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in result %}
+                <tr>
+                    <td hidden>{{ r[4] }}</td>
+                    <td>
+                    {% if r[0]!=0 %}
+                        <span class="badge badge-danger">{{ r[0] }}</span>
+                        {% endif %}
+                        {{ r[2] }}</td>
+
+                    <td>{{ r[3] }}</td>
+
+            <td>
+                <a class="btn btn-success" href="{{ url_for('chat.privatechat',user_id=r[1]) }}">
+
+    </a>
+
+
+            </td>
+                {% else %}
+                <td colspan="8" align="center">No rooms so far</td>
+
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript">
+
+    </script>
+{% endblock %}
+
+
