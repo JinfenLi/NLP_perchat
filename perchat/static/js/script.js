@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    var socket = io('/chat').connect();
     var popupLoading = '<i class="notched circle loading icon green"></i> Loading...';
     var message_count = 0;
     var ENTER_KEY = 13;
