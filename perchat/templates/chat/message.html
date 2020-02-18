@@ -7,7 +7,7 @@
                     <div class="msg" >
                         <h3><span class="nickname" style="color:palevioletred">{{ message.sender.nickname }}</span>
                         <small class="timestamp">{{ moment(message.timestamp).format('lll') }}</small>
-                        {% if isShow %}
+                        {% if isShow==1 %}
                         {% if message.persuasive %}
                         <span class="label label-info">persuasive</span>
                         {%else%}

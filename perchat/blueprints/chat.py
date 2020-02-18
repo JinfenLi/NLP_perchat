@@ -309,6 +309,7 @@ def new_message(message_body,persuasive,room_id,isShow):
     message = Message(sender=current_user._get_current_object(), body=html_message, persuasive=persuasive,room_id=room_id)
     db.session.add(message)
     db.session.commit()
+
     emit('new message',
          {'message_html': render_template('chat/message.html', message=message,isShow=isShow),
           'message_body': html_message,

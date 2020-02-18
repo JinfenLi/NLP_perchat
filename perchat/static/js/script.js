@@ -63,7 +63,6 @@ $(document).ready(function () {
 
     if (typeof socket!=="undefined") {
         socket.on('new message', function (data) {
-            // alert('sdf');
             message_count++;
             if (!document.hasFocus()) {
                 document.title = '(' + message_count + ') ' + 'Unread';
@@ -71,7 +70,6 @@ $(document).ready(function () {
             if (data.user_id !== current_user_id) {
                 messageNotify(data);
             }
-            // alert(data.nickname);
             $('.messages').append(data.message_html);
             flask_moment_render_all();
             scrollToBottom();
@@ -124,7 +122,6 @@ $(document).ready(function () {
             if(isShow==1){
                 socket.emit('check', message_body,room_id);
             }else{
-
                 socket.emit('new message', quote+message_body, -1,room_id,isShow);
 
                 $textarea.val('');

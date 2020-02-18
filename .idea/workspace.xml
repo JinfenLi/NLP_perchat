@@ -2,41 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa7a9509-edec-4d77-8b3f-be1563e29f58" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/perchat/MLmodels/lr2.pickle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/perchat/MLmodels/vec.p" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/README" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/alembic.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/env.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/script.py.mako" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/955db45e66e3_.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/MLmodels/DecisionTreeClassifier.sav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/MLmodels/GaussianNB.sav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/MLmodels/KNeighborsClassifier.sav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/MLmodels/LinearDiscriminantAnalysis.sav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/MLmodels/RandomForest.sav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/MLmodels/SupportVectorMachine.sav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/MLmodels/lr.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/MLmodels/lr.pickle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/MLmodels/train.tsv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/MLmodels/train.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/blueprints/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/blueprints/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/perchat/blueprints/chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/blueprints/chat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/static/js/forms.js" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/static/js/forms.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/perchat/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/static/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/templates/chat/admin_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/templates/chat/admin_home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/templates/chat/checked_room.html" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/templates/chat/checked_room.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/perchat/templates/chat/message.html" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/templates/chat/message.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/templates/chat/room_message.html" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/templates/chat/room_message.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/templates/chat/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/templates/chat/user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/templates/chat/user_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/templates/chat/user_home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/templates/chat/wait_room.html" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/templates/chat/wait_room.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,18 +15,18 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/newperchat$newperchat.coverage" NAME="newperchat Coverage Results" MODIFIED="1581554265254" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/perchat$tasd.coverage" NAME="tasd Coverage Results" MODIFIED="1581634217710" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/perchat/MLmodels" />
-    <SUITE FILE_PATH="coverage/perchat$perchat.coverage" NAME="perchat Coverage Results" MODIFIED="1582004074247" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/perchat$perchat.coverage" NAME="perchat Coverage Results" MODIFIED="1582005277341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/perchat/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
+            <state relative-caret-position="294">
+              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
             </state>
           </provider>
         </entry>
@@ -82,18 +50,9 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/perchat/templates/chat/user_home.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="143" selection-start-line="143" selection-end-line="149" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/perchat/templates/chat/room_message.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="930">
+            <state relative-caret-position="857">
               <caret line="62" column="424" selection-start-line="62" selection-start-column="424" selection-end-line="62" selection-end-column="424" />
             </state>
           </provider>
@@ -111,17 +70,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/perchat/static/js/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="63" column="14" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
+            <state relative-caret-position="281">
+              <caret line="74" column="51" selection-start-line="74" selection-start-column="39" selection-end-line="74" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/perchat/templates/chat/message.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="22" selection-start-column="22" selection-end-column="22" />
+            <state relative-caret-position="135">
+              <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -129,8 +88,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/perchat/blueprints/chat.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2583">
-              <caret line="301" column="25" selection-start-line="301" selection-start-column="14" selection-end-line="301" selection-end-column="25" />
+            <state relative-caret-position="199">
+              <caret line="311" column="16" selection-start-line="311" selection-start-column="16" selection-end-line="311" selection-end-column="16" />
               <folding>
                 <element signature="e#25#133#0" expanded="true" />
               </folding>
@@ -238,7 +197,6 @@
         <option value="$PROJECT_DIR$/perchat/templates/chat/wait_room.html" />
         <option value="$PROJECT_DIR$/perchat/forms.py" />
         <option value="$PROJECT_DIR$/perchat/static/js/forms.js" />
-        <option value="$PROJECT_DIR$/perchat/templates/chat/message.html" />
         <option value="$PROJECT_DIR$/perchat/templates/chat/user.html" />
         <option value="$PROJECT_DIR$/perchat/models.py" />
         <option value="$PROJECT_DIR$/perchat/blueprints/admin.py" />
@@ -246,9 +204,10 @@
         <option value="$PROJECT_DIR$/perchat/templates/chat/room_message.html" />
         <option value="$PROJECT_DIR$/perchat/utils.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/perchat/blueprints/chat.py" />
         <option value="$PROJECT_DIR$/perchat/templates/chat/admin_home.html" />
         <option value="$PROJECT_DIR$/perchat/static/js/script.js" />
+        <option value="$PROJECT_DIR$/perchat/blueprints/chat.py" />
+        <option value="$PROJECT_DIR$/perchat/templates/chat/message.html" />
       </list>
     </option>
   </component>
@@ -462,6 +421,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="794" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28898427" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -698,36 +658,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/perchat/templates/chat/room_message.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="62" column="424" selection-start-line="62" selection-start-column="424" selection-end-line="62" selection-end-column="424" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/perchat/blueprints/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2190">
           <caret line="146" column="42" selection-start-line="146" selection-start-column="42" selection-end-line="146" selection-end-column="42" />
           <folding>
             <element signature="e#188#282#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/perchat/templates/chat/message.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="22" selection-start-column="22" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/perchat/blueprints/chat.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2583">
-          <caret line="301" column="25" selection-start-line="301" selection-start-column="14" selection-end-line="301" selection-end-column="25" />
-          <folding>
-            <element signature="e#25#133#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -753,13 +689,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/perchat/static/js/script.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="63" column="14" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/perchat/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -769,8 +698,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/perchat/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
+        <state relative-caret-position="294">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/perchat/templates/chat/room_message.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="857">
+          <caret line="62" column="424" selection-start-line="62" selection-start-column="424" selection-end-line="62" selection-end-column="424" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/perchat/blueprints/chat.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="311" column="16" selection-start-line="311" selection-start-column="16" selection-end-line="311" selection-end-column="16" />
+          <folding>
+            <element signature="e#25#133#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/perchat/static/js/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="74" column="51" selection-start-line="74" selection-start-column="39" selection-end-line="74" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/perchat/templates/chat/message.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
         </state>
       </provider>
     </entry>
