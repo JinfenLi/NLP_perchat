@@ -466,10 +466,15 @@ def textCheck(text):
     APP_ROOT = os.path.dirname(os.path.abspath(__file__))
     fea = np.array([gettingFeatures(text)])
     # open(os.path.join(APP_ROOT, "MLmodels/vectorizer.pickle"), "rb")
-    loaded_model = joblib.load(open(os.path.join(APP_ROOT,"MLmodels/LogisticRegression.sav"),'rb'))
+    # loaded_model = joblib.load(open(os.path.join(APP_ROOT,"MLmodels/LogisticRegression.sav"),'rb'))
+    loaded_model = pickle.load(open(os.path.join(APP_ROOT, "MLmodels/lr.pickle"), 'rb'))
+    with open(os.path.join(APP_ROOT,'MLmodels/vec.p'),'rb') as file:
+        vec = pickle.load(file)
+    test_vec = vec.transform([text.lower()])
     # print(loaded_model)
+    fea = np.concatenate([fea, test_vec.toarray()[:, :1000]], axis=1)
     predictions = loaded_model.predict(fea.reshape(1, -1))
-    prob = loaded_model.predict_proba(fea.reshape(1, -1))
+
     # result.append((predictions[0], prob, "Logistic Regression"))
     # model = pickle.load(open(os.path.join(APP_ROOT,'MLmodels/lr.pickle'), 'rb'))
     # prediction = model.predict(fea)

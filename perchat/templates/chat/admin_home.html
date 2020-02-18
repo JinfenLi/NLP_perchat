@@ -35,19 +35,24 @@
 
 {% block createroomModal %}
 
-<div class="ui modal snippet small centered" tabindex="-4"  id="createroommodal">
+<div class="ui modal snippet small center" tabindex="-4"  id="createroommodal">
 
         <div class="content">
     <div class="modal-header">Create Room</div>
     <div class="content" align="center">
-    <form class="ui form" method="post" >
+    <form class="create ui form" method="post" >
                 <div class="field eight wide" >
-                    <label>name</label>
-                    <input name="name" placeholder="name" type="text" id="room-name">
+                    <label><span style="color:red;">* </span>name</label>
+                    <input name="name" placeholder="name" type="text" id="room-name" required="required">
                 </div>
                 <div class="field eight wide">
                     <label>description</label>
-                    <input name="description" placeholder="description" type="text" id="room-description">
+                    <input name="description" placeholder="description" type="text" id="room-description" required="required">
+                </div>
+                <div class="field eight wide">
+                    <label><span style="color:red;">* </span>show persuasion feature?</label>
+                    <input type="radio" class="control-label control-show"  value=1 name="category" /> Yes
+                     <input type="radio" class="control-label control-hide" value=0 name="category" /> No
                 </div>
 
             </form>
@@ -124,7 +129,7 @@
     {{ super() }}
     <script type="text/javascript">
 
-
     </script>
 {% endblock %}
+
 

@@ -61,24 +61,24 @@ $(document).ready(function () {
     });
     }
 
-    if (typeof socket!=="undefined"){
+    if (typeof socket!=="undefined") {
         socket.on('new message', function (data) {
+            // alert('sdf');
+            message_count++;
+            if (!document.hasFocus()) {
+                document.title = '(' + message_count + ') ' + 'Unread';
+            }
+            if (data.user_id !== current_user_id) {
+                messageNotify(data);
+            }
+            // alert(data.nickname);
+            $('.messages').append(data.message_html);
+            flask_moment_render_all();
+            scrollToBottom();
+            activateSemantics();
+        });
 
-        message_count++;
-        if (!document.hasFocus()) {
-            document.title = '(' + message_count + ') ' + 'Unread';
-        }
-        if (data.user_id !== current_user_id) {
-            messageNotify(data);
-        }
-        // alert(data.nickname);
-        $('.messages').append(data.message_html);
-        flask_moment_render_all();
-        scrollToBottom();
-        activateSemantics();
-    });
     }
-
     if (typeof socket!=="undefined"){
         socket.on('check', function (data) {
         var quote = $('#quote').text();
@@ -89,7 +89,7 @@ $(document).ready(function () {
 
             if (data.result) {
 
-                socket.emit('new message', quote+data.message_body, 1,room_id);
+                socket.emit('new message', quote+data.message_body, 1,room_id,isShow);
                 $textarea.val('');
                 $("#quote").text('');
                 $('#deletequote').hide();
@@ -97,7 +97,7 @@ $(document).ready(function () {
             else {
 
                 if (confirm("your message is not persuasive, are you sure to send it?")) {
-                    socket.emit('new message', quote+data.message_body, 0,room_id);
+                    socket.emit('new message', quote+data.message_body, 0,room_id,isShow);
                     $textarea.val('');
                     $("#quote").text('');
                     $('#deletequote').hide();
@@ -114,16 +114,23 @@ $(document).ready(function () {
     function new_message(e) {
         var $textarea = $('#message-textarea');
         var message_body = $textarea.val().trim();
-
+        var quote = $('#quote').text();
 
 
 
         if (e.which === ENTER_KEY && !e.shiftKey && message_body) {
             e.preventDefault();
-            socket.emit('check', message_body,room_id);
+            // alert(isShow);
+            if(isShow==1){
+                socket.emit('check', message_body,room_id);
+            }else{
 
-                // socket.emit('new message', message_body);
-                // $textarea.val('')
+                socket.emit('new message', quote+message_body, -1,room_id,isShow);
+
+                $textarea.val('');
+                $("#quote").text('');
+                $('#deletequote').hide();
+            }
 
         }
     }
@@ -217,11 +224,9 @@ $(document).ready(function () {
             $('.ui.modal.help').modal({blurring: true}).modal('show');
         });
 
+
         $('#show-snippet-modal').on('click', function () {
             $('.ui.modal.snippet').modal({blurring: true}).modal('show');
-
-
-
         });
 
         $('.pop-card').popup({
@@ -324,7 +329,8 @@ $(document).ready(function () {
                 "<td>"+data.time+"</td>"+
                 "<td>"+data.owner+"</td>"+
                 "<td>1</td>" +
-                "<td>wait</td>"+
+                "<td>"+data.isShow+"</td>"+
+                "<td>Wait</td>"+
                 "</tr>";
             if("#userwaitroom:waitnoroom".length>0){
                 $("#waitnoroom").remove();
@@ -345,9 +351,15 @@ $(document).ready(function () {
 
         var name =$("#room-name").val();
         var description = $("#room-description").val();
-        var data= {
+        var showpersuasive = $('input:radio[name="category"]:checked').val();
+        if(name==null ||  showpersuasive==null){
+            alert('please complete all the fields');
+
+
+        }else{
+            var data= {
                     data: JSON.stringify({
-                        'name': name,"description":description
+                        'name': name,"description":description,'showpersuasive':showpersuasive
                     })
                 };
 
@@ -372,6 +384,7 @@ $(document).ready(function () {
                 "<td>"+data.description+"</td>" +
                 "<td>"+data.time+"</td>"+
                 "<td>1</td>" +
+                "<td>"+data.show+"</td>" +
                 "<td><div class=\"item delete-room-button\"" +
                 "                         data-href="+data.deleteurl+"><i class=\"delete icon\"></i></div></td>" +
                 "<td><a class=\"btn btn-success\" href="+data.startchaturl+"></a></td>"+
@@ -391,6 +404,8 @@ $(document).ready(function () {
                     alert('Oops, something was wrong!')
                 }
         });
+        }
+
       });
 
     $('#checkroomtable').on('click','.delete-room-button', function () {
@@ -494,3 +509,8 @@ function leave_private_room() {
                     window.location.href = user_url;
                 });
             }
+function showhelp(){
+    // $('#show-snippet-modal').on('click', function () {
+            $('.ui.modal.help').modal({blurring: true}).modal('show');
+        // });
+}

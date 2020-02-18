@@ -20,11 +20,11 @@ class User_Has_Room(db.Model):
     __tablename__ = 'user_has_room'
     user_id = db.Column('user_id', db.Integer, db.ForeignKey('user.id'),primary_key=True)
     room_id = db.Column('room_id', db.Integer, db.ForeignKey('room.id'),primary_key=True)
-    # 0:group 1:private
-    room_type = db.Column('room_type', db.Integer, nullable=False)
+
     quit_time = db.Column(db.DateTime, nullable=True)
-    # 0:wait 1:pass 2:deny 3:apply for rejoin
+    # 0:wait 1:pass
     status = db.Column('status', db.Integer, nullable=False)
+
     user = db.relationship("User", back_populates="rooms")
     room = db.relationship("Room", back_populates="users")
 
@@ -87,6 +87,9 @@ class Room(db.Model):
     second_owner_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"))
     users = db.relationship('User_Has_Room', back_populates='room')
     messages = db.relationship('Message', back_populates='room',cascade="all, delete-orphan")
+    # 0:group 1:private
+    room_type = db.Column('room_type', db.Integer, nullable=False)
+    isShow = db.Column('isShow', db.Integer, nullable=False, default=1)
 
 
 
@@ -98,7 +101,7 @@ class Message(db.Model):
     sender = db.relationship('User', back_populates='messages')
     room_id = db.Column(db.Integer, db.ForeignKey('room.id',ondelete="CASCADE"))
     room = db.relationship('Room', back_populates='messages')
-    persuasive = db.Column(db.Integer, nullable=False)
+    persuasive = db.Column(db.Integer, nullable=True)
 
 
 

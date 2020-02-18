@@ -153,6 +153,8 @@ def register_commands(app):
             name = i,
             description = i,
             owner = admin.nickname,
+            room_type=0,
+                isShow=1
             # first_owner_id = admin.id
             # messages = messages[i:i+20]
 
@@ -160,7 +162,7 @@ def register_commands(app):
 
             db.session.add(room)
             db.session.commit()
-            userhasroom = User_Has_Room(user_id=admin.id, room_id=room.id, room_type=0, status=1, user=admin, room=room)
+            userhasroom = User_Has_Room(user_id=admin.id, room_id=room.id, status=1, user=admin, room=room)
             db.session.add(userhasroom)
             db.session.commit()
             rooms.append(room)
@@ -187,12 +189,13 @@ def register_commands(app):
         )
         db.session.add(message)
         rooms[0].owner=''
-        user_has_room = User_Has_Room(status=0,room_type=1,quit_time=fake.date_time_between('-32d', '-30d'))
+        rooms[0].room_type = 1
+        user_has_room = User_Has_Room(status=0,quit_time=fake.date_time_between('-32d', '-30d'))
         user_has_room.user = users[0]
         rooms[0].first_owner_id = users[0].id
         user_has_room.room = rooms[0]
         db.session.add(user_has_room)
-        user_has_room = User_Has_Room(status=0, room_type=1)
+        user_has_room = User_Has_Room(status=0)
         user_has_room.user = users[1]
         rooms[0].second_owner_id = users[1].id
         user_has_room.room = rooms[0]
@@ -214,12 +217,13 @@ def register_commands(app):
         )
         db.session.add(message)
         rooms[1].owner=''
-        user_has_room = User_Has_Room(status=0, room_type=1)
+        rooms[1].room_type = 1
+        user_has_room = User_Has_Room(status=0)
         user_has_room.user = users[0]
         rooms[1].first_owner_id = users[0].id
         user_has_room.room = rooms[1]
         db.session.add(user_has_room)
-        user_has_room = User_Has_Room(status=0, room_type=1)
+        user_has_room = User_Has_Room(status=0)
         user_has_room.user = users[2]
         rooms[1].second_owner_id = users[2].id
         user_has_room.room = rooms[1]
@@ -241,12 +245,13 @@ def register_commands(app):
         )
         db.session.add(message)
         rooms[3].owner=''
-        user_has_room = User_Has_Room(status=1, room_type=1)
+        rooms[3].room_type=1
+        user_has_room = User_Has_Room(status=1)
         user_has_room.user = users[1]
         rooms[3].first_owner_id = users[1].id
         user_has_room.room = rooms[3]
         db.session.add(user_has_room)
-        user_has_room = User_Has_Room(status=1, room_type=1)
+        user_has_room = User_Has_Room(status=1)
         user_has_room.user = users[2]
         rooms[3].second_owner_id = users[2].id
         user_has_room.room = rooms[3]
@@ -275,16 +280,16 @@ def register_commands(app):
             persuasive=0, room_id=rooms[2].id
         )
         db.session.add(message)
-        user_has_room = User_Has_Room(status=1, room_type=0,quit_time=fake.date_time_between('-32d', '-30d'))
+        user_has_room = User_Has_Room(status=1, quit_time=fake.date_time_between('-32d', '-30d'))
         user_has_room.user = users[0]
         rooms[2].first_owner_id = admin.id
         user_has_room.room = rooms[2]
         db.session.add(user_has_room)
-        user_has_room = User_Has_Room(status=1, room_type=0)
+        user_has_room = User_Has_Room(status=1)
         user_has_room.user = users[1]
         user_has_room.room = rooms[2]
         db.session.add(user_has_room)
-        user_has_room = User_Has_Room(status=1, room_type=0)
+        user_has_room = User_Has_Room(status=1)
         user_has_room.user = users[2]
         user_has_room.room = rooms[2]
         db.session.add(user_has_room)

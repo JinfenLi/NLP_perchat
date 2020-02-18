@@ -15,6 +15,7 @@
                     <th style="color:white">Description</th>
                     <th style="color:white">Create Time</th>
                     <th style="color:white">Total User</th>
+                    <th style="color:white">Show Persuasion</th>
                      <th style="color:white">Delete</th>
                     <th style="color:white">Start Chat</th>
                 </tr>
@@ -30,9 +31,10 @@
                     <td>{{ room[2] }}</td>
                     <td>{{ room[3] }}</td>
                     <td>{{ room[4] }}</td>
+                    <td>{{ room[5] }}</td>
 
             <td><div class="item delete-room-button"
-                         data-href="{{ url_for('admin.deleteroom', room_id=room[5]) }}">
+                         data-href="{{ url_for('admin.deleteroom', room_id=room[6]) }}">
                         <i class="delete icon"></i>
             </div></td>
             <td>
@@ -43,7 +45,7 @@
 
             </td>
                 {% else %}
-                <td colspan="8" align="center" id="createnoroom">No rooms so far</td>
+                <td colspan="9" align="center" id="createnoroom">No rooms so far</td>
 
                 {% endfor %}
             </tr>
@@ -65,6 +67,7 @@
                     <th style="color:white">Description</th>
                     <th style="color:white">Create Time</th>
                     <th style="color:white">Total User</th>
+                    <th style="color:white">Show Persuasion</th>
                     <th style="color:white">Start Chat</th>
 
                 </tr>
@@ -80,9 +83,10 @@
                     <td>{{ room[2] }}</td>
                     <td>{{ room[3] }}</td>
                     <td>{{ room[5] }}</td>
+                    <td>{{ room[6] }}</td>
                     <td> <a class="btn btn-success" href="{{ url_for('chat.startchat',room_name=room[1]) }}"></a></td>
                     {% else %}
-            <td colspan="6" align="center">No rooms so far</td>
+            <td colspan="7" align="center">No rooms so far</td>
                 {% endfor %}
             </tbody>
         </table>
@@ -97,6 +101,7 @@
                     <th style="color:white">Create Time</th>
                     <th style="color:white">Owner</th>
                     <th style="color:white">Total User</th>
+                    <th style="color:white">Show Persuasion</th>
                     <th style="color:white">Status</th>
 
                 </tr>
@@ -109,9 +114,10 @@
                     <td>{{ room[2] }}</td>
                     <td>{{ room[3] }}</td>
                     <td>{{ room[4] }}</td>
+                    <td>{{ room[5] }}</td>
                    <td> Wait</td>
                     {% else %}
-            <td colspan="6" align="center" id="waitnoroom">No waiting rooms so far</td>
+            <td colspan="7" align="center" id="waitnoroom">No waiting rooms so far</td>
                 {% endfor %}
             </tbody>
         </table>

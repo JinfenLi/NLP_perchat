@@ -195,34 +195,28 @@ $(document).ready(function () {
             }
         });
 
-     // register form
-    $('.createroom.ui.form')
+     // createroom form
+    $('.create.ui.form')
         .form({
-            inline: true,
             fields: {
                 name: {
                     identifier: 'name',
                     rules: [{
                         type: 'empty',
                         prompt: 'Please enter the name'
-                    },
-                        {
-                            type: 'maxLength[12]',
-                            prompt: 'The name must be not more than {ruleValue} characters'
-                        }
+                    }
                     ]
                 },
                 description: {
                     identifier: 'description',
                     optional: true,
-                    rules: [{
-                        type: 'maxLength[25]',
-                        prompt: 'The description must be not more than {ruleValue} characters'
-                    }]
+                    rules: [
+                        {
+                            type: 'minLength[25]',
+                            prompt: 'Your password must be at least 25 characters'
+                        }
+                    ]
                 }
-
-
-
             }
         });
 });

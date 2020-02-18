@@ -49,6 +49,12 @@
             Profile
         </a>
     {% endif %}
+    {% if current_user.is_admin %}
+    <a class="item" href="{{ url_for('admin.showdb') }}">
+            <i class="download icon"></i>
+            Download
+        </a>
+    {% endif %}
     <a class="item" id="show-help-modal">
         <i class="help icon"></i>
         Help

@@ -37,6 +37,7 @@ def createroom():
     # print("data",data)
     name = data['name']
     description = data['description']
+    showpersuasive = data['showpersuasive']
     room = Room.query.filter_by(name=name).first()
     # print(room)
     if room is not None:
@@ -47,13 +48,13 @@ def createroom():
 
     else:
 
-        room = Room(name=name, description=description,owner=current_user.nickname)
-        userhasroom = User_Has_Room(user_id=current_user.id,room_id=room.id,status=1,room_type=0,user = current_user, room = room)
+        room = Room(name=name, description=description,owner=current_user.nickname,room_type=0,isShow=showpersuasive)
+        userhasroom = User_Has_Room(user_id=current_user.id,room_id=room.id,status=1,user = current_user, room = room)
         db.session.add(room)
         db.session.add(userhasroom)
         db.session.commit()
         r = Room.query.filter_by(name=name).first()
-        data={'name':r.name,'description':r.description,'time':r.timestamp.strftime('%Y-%m-%d'),'totaluser':1,'id':r.id,
+        data={'name':r.name,'description':r.description,'time':r.timestamp.strftime('%Y-%m-%d'),'totaluser':1,'show':'Yes' if r.isShow else 'No','id':r.id,
               'deleteurl':url_for('admin.deleteroom', room_id=r.id),'startchaturl':url_for('chat.startchat', room_name=r.name)
               }
         # room = [r.name, r.description, r.timestamp.strftime('%Y-%m-%d'), r.owner,
@@ -133,19 +134,20 @@ def downloadmessages():
         room = Room.query.filter_by(id=m.room_id).first()
 
 
-        type = 'group' if room.owner else 'private'
+        type = 'private' if room.room_type else 'group'
         mid= m.id
         html_body= m.body
         pure_text = html2text.html2text(html_body)
         create_time= m.timestamp
         sender = m.sender.nickname
-        if room.owner:
+        if room.room_type:
+
             allusers = User_Has_Room.query.filter_by(room_id=room.id).all()
-            print([u.user_id for u in allusers])
+            # print([u.user_id for u in allusers])
             receiverid=list(set([u.user_id for u in allusers])-set(list([m.sender_id])))[0]
             receiver = User.query.filter_by(id=receiverid).first().nickname
         else:
-            receiver = room.name
+            receiver = 'Room '+room.name
         room_name = room.name
         room_id = room.id
         persuasive = m.persuasive
