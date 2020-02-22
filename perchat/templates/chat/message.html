@@ -7,13 +7,14 @@
                     <div class="msg" >
                         <h3><span class="nickname" style="color:palevioletred">{{ message.sender.nickname }}</span>
                         <small class="timestamp">{{ moment(message.timestamp).format('lll') }}</small>
-                        {% if isShow==1 %}
-                        {% if message.persuasive %}
+
+                        {% if isShow==1 and message.persuasive==1 %}
                         <span class="label label-info">persuasive</span>
-                        {%else%}
+                        {%endif%}
+                        {% if isShow==1 and message.persuasive==0 %}
                             <span class="label label-warning">non-persuasive</span>
                         {% endif %}
-                        {% endif %}
+
                         <span class="message-body">{{ message.body|safe }}</span></h3>
                     </div>
                     {% if current_user.is_authenticated %}

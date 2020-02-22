@@ -102,6 +102,20 @@ $(document).ready(function () {
 
 
                 }
+                else{
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "/revised_message",
+                        data: {'room_id':room_id, 'message_text':quote+data.message_body},
+                        success: function () {
+                            // alert('Success, this user is gone!')
+                        },
+                        error: function () {
+                            alert('Oops, something was wrong!')
+                        }
+                    });
+                }
             }
         }
 

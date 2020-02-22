@@ -38,15 +38,24 @@ def flash_errors(form):
 
 
 
-def save_messages(messages):
+def save_messages(messages,revised_messages):
 
     APP_ROOT = os.path.dirname(os.path.abspath(__file__))
     filepath = os.path.join(APP_ROOT + "/static/downloads/")
     filename = "%s-%s.xlsx" % ('messages', time.strftime('%Y%m%d'))
+    writer = pd.ExcelWriter(filepath + filename,engine='xlsxwriter')
+
     pd.DataFrame(messages, columns=['type',
                                     'id', 'html_body','pure_text', 'create_time', 'sender_nickname', 'receiver_nickname','room_id',
-                                    'room_name', 'persuasive'
-                                    ]).to_excel(filepath + filename,index=None)
+                                    'room_name', 'revised_time','persuasive'
+                                    ]).to_excel(writer,index=None,sheet_name='sent_messages')
+    pd.DataFrame(revised_messages, columns=['sender',
+                                    'final_message_id', 'room_id', 'final_html_text', 'final_pure_text', 'revised_message_id',
+                                    'revised_html_text', 'revised_pure_text',
+                                    'revised_create_time'
+                                    ]).to_excel(writer, index=None, sheet_name='revised_messages')
+    writer.save()
+    
     return filepath, filename
 
 def save_users(users):

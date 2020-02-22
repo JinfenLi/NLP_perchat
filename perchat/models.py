@@ -42,6 +42,7 @@ class User(UserMixin, db.Model):
     website = db.Column(db.String(255))
     bio = db.Column(db.String(120))
     messages = db.relationship('Message', back_populates='sender',cascade="all, delete-orphan")
+    revised_messages = db.relationship('Revised_Message', back_populates='sender', cascade="all, delete-orphan")
     rooms = db.relationship('User_Has_Room', back_populates='user')
 
     def __init__(self, **kwargs):
@@ -90,6 +91,7 @@ class Room(db.Model):
     # 0:group 1:private
     room_type = db.Column('room_type', db.Integer, nullable=False)
     isShow = db.Column('isShow', db.Integer, nullable=False, default=1)
+    revised_messages = db.relationship('Revised_Message', back_populates='room',cascade="all, delete-orphan")
 
 
 
@@ -102,9 +104,20 @@ class Message(db.Model):
     room_id = db.Column(db.Integer, db.ForeignKey('room.id',ondelete="CASCADE"))
     room = db.relationship('Room', back_populates='messages')
     persuasive = db.Column(db.Integer, nullable=True)
+    revised_messages = db.relationship('Revised_Message', back_populates='messages',cascade="all, delete-orphan")
 
-
-
+class Revised_Message(db.Model):
+    __tablename__ = 'revised_message'
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id',ondelete="CASCADE"))
+    sender = db.relationship('User', back_populates='revised_messages')
+    message_id = db.Column(db.Integer, db.ForeignKey('message.id',ondelete="CASCADE"))
+    messages = db.relationship('Message', back_populates='revised_messages')
+    room_id = db.Column(db.Integer, db.ForeignKey('room.id', ondelete="CASCADE"))
+    room = db.relationship('Room', back_populates='revised_messages')
+    lock = db.Column('lock', db.Integer, nullable=False,default=0)
 
 
 

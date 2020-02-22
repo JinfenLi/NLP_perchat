@@ -9,7 +9,7 @@ from flask import Blueprint, abort,request,url_for,jsonify,render_template,send_
 from flask_login import current_user,login_required
 
 from perchat.extensions import db
-from perchat.models import User,Room,User_Has_Room,Message
+from perchat.models import User,Room,User_Has_Room,Message,Revised_Message
 import json
 from perchat.utils import save_messages,save_users
 import html2text
@@ -105,7 +105,6 @@ def validate():
 
 @admin_bp.route('/room/delete/<room_id>', methods=['DELETE'])
 def deleteroom(room_id):
-    print(room_id)
     if not current_user.is_admin:
         abort(403)
     room = Room.query.get_or_404(room_id)
@@ -129,7 +128,7 @@ def downloadmessages():
         abort(403)
 
     messages = Message.query.order_by(Message.timestamp.desc()).all()
-    result=[]
+    result1=[]
     for m in messages:
         room = Room.query.filter_by(id=m.room_id).first()
 
@@ -151,18 +150,34 @@ def downloadmessages():
         room_name = room.name
         room_id = room.id
         persuasive = m.persuasive
-        r = [type,mid,html_body,pure_text,create_time,sender,receiver,room_id,room_name,persuasive]
-        result.append(r)
-    #     r.extend(['private' if room.owner else 'group', m.id, m.body, m.timestamp, m.sender.nickname,
-    #               m.privateroom.owner if m.privateroom else 'group', m.room.name if m.room else '',
-    #               m.privateroom.name if m.privateroom else ''])
-    # messages = [['private' if m.room.owner else 'group', m.id, m.body, m.timestamp, m.sender.nickname,
-    #              m.privateroom.owner if m.privateroom else 'group', m.room.name if m.room else '',
-    #              m.privateroom.name if m.privateroom else '', m.persuasive] for m in messages]
-
-    filepath, filename = save_messages(result)
+        revised_time = len(Revised_Message.query.filter_by(message_id = m.id).all())
+        r = [type,mid,html_body,pure_text,create_time,sender,receiver,room_id,room_name,revised_time,persuasive]
+        result1.append(r)
+    revised_messages = Revised_Message.query.order_by(Revised_Message.sender_id.asc()).all()
+    result2 = []
+    for m in revised_messages:
+        room = Room.query.filter_by(id=m.room_id).first()
+    
+        
+        rmid = m.id
+        html_body = m.body
+        pure_text = html2text.html2text(html_body)
+        mid = m.message_id
+        messages = Message.query.filter_by(id=mid).first()
+        final_text = messages.body
+        final_pure_text = html2text.html2text(final_text)
+        create_time = m.timestamp
+        sender = m.sender.nickname
+        
+        room_name = room.name
+        room_id = room.id
+        r = [sender,mid,room_id,final_text,final_pure_text,rmid,  html_body, pure_text, create_time]
+        result2.append(r)
+    filepath, filename = save_messages(result1,result2)
 
     return send_from_directory(filepath, filename, as_attachment=True)
+
+
 
 @admin_bp.route('/export/users')
 @login_required
