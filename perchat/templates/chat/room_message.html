@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 
 {% block nav %}
-    <div class="ui top fixed borderless menu" style="width: 876px;">
+    <div class="ui top fixed borderless menu" style="width: 776px;">
 
         <a class="item catchat" href="{{ url_for('chat.index') }}">
             <img src="{{ url_for('static', filename='logo.png') }}">
@@ -23,18 +23,17 @@
 
             <div class="messages">
                 <div class="ui text loader">Loading messages...</div>
-{#                <iframe id="security1" frameborder="0" src='messages.html'></iframe>#}
                 {% include 'chat/messages.html' %}
             </div>
         </div>
     <div class="input-area" >
             <div class="ui grid form">
-                <div class="ten wide column">
+                <div class=" wide column">
                     <div class="field fluid message-box">
                         {% if current_user.is_authenticated %}
 
                             <div class="item" id="deletequote" hidden>
-                                <span type="text" id="quote" ></span>
+                                <span type="text" id="quote" style="width:750px;display: block;"></span>
                                             <i class="delete icon" ></i>
                                         </div>
                             <img class="pop-card input-avatar" data-position="bottom left"
@@ -51,21 +50,24 @@
                 </div>
             </div>
         </div>
-    <div class="ui right fixed menu " style="width: 300px;border: 100px;">
+    <div class="ui right fixed menu " style="width: 400px;border: 100px;">
 
-        <div class="ui labeled icon right vertical inverted demo menu " style="width: 300px;" >
+        <div class="ui labeled icon right vertical inverted demo menu " style="width: 400px;" >
 
 
 
 <hr>
         <hr>
 
-               <p style="color:white; width:250px; line-height: 20px; margin-left: 20px;"  align="justify" >Persuasion is commonly considered as a communication strategy with the purpose to influence others by modifying their beliefs, values, or attitudes. You can find about how to write more persuasively at places like: <a href="https://www.grammarcheck.net/ten-important-triggers-for-persuasive-writing/" target="_blank">https://www.grammarcheck.net/ten-important-triggers-for-persuasive-writing/</a></p> .
+               <p style="color:white; width:350px; line-height: 20px; margin-left: 20px; font-size:16px;"  align="justify" >Persuasion is commonly considered as a communication strategy with the purpose to influence others by modifying their beliefs, values, or attitudes. You can find about how to write more persuasively at places like: <a href="https://www.grammarcheck.net/ten-important-triggers-for-persuasive-writing/" target="_blank">https://www.grammarcheck.net/ten-important-triggers-for-persuasive-writing/</a></p> .
 
 
 
 {% if isShow==1 %}
-<p style="color:white;width: 250px;line-height: 20px;margin-left: 20px;" align="justify" > In this tool, we use a computational technique to detect the persuasion power of a message. If a message is labelled to be persuasive, it means that according to our technique it has a relatively high chance to influence your view. If it is labelled to be non-persuasive, that chance is relatively low.</p>
+    <p style="color:white;width: 350px;line-height: 20px;margin-left: 20px;font-size:16px;" align="justify" > In this tool, we use a computational technique to detect the persuasion power of a message. </p>
+
+    <p style="color:white;width: 350px;line-height: 20px;margin-left: 20px;font-size:16px;" align="justify"> If a message is labelled to be persuasive, it means that according to our technique it has a relatively high chance to influence your view. </p>
+       <p style="color:white;width: 350px;line-height: 20px;margin-left: 20px;font-size:16px;" align="justify">If it is labelled to be non-persuasive, that chance is relatively low.</p>
 {% endif %}
         <hr>
 

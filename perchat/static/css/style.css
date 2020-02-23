@@ -76,6 +76,7 @@ blockquote p {
 #message-textarea {
     /*display: block;*/
     margin-left: 70px;
+    width:100%;
 }
 
 .msg-box .picture {
@@ -87,6 +88,7 @@ blockquote p {
 }
 
 .ellipsis-icon {
+    /*float: left;*/
     position: absolute;
     display: inline-block;
     visibility: hidden;
@@ -112,7 +114,7 @@ blockquote p {
     display: inline-block;
     padding: 12px;
     width: auto;
-    max-width: 57%;
+    max-width: 55%;
     border-radius: 2px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
     position: relative;
@@ -191,7 +193,7 @@ body > .grid {
 }
 
 .column {
-    max-width: 450px;
+    max-width: 650px;
 }
 
 .signup-btn {

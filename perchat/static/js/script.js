@@ -188,6 +188,9 @@ $(document).ready(function () {
         var message = $(this).parent().parent().parent().find('.message-body').text();
         var name = $(this).parent().parent().parent().find('.nickname').text();
         $("#quote").text('>' + name+': '+message+ '\n\n');
+        $(".messages").css("paddingBottom",$("#quote").height());
+        scrollToBottom();
+        // $(".messages").paddingBottom += $("#quote").height();
         // $textarea.val('> ' + name+'\n'+message + '\n\n');
         $textarea.val($textarea.val()).focus()
 
@@ -196,6 +199,8 @@ $(document).ready(function () {
 
                 $('#quote').text('');
                 $('#deletequote').hide();
+                $(".messages").css("paddingBottom","10px");
+        scrollToBottom();
 
 
 

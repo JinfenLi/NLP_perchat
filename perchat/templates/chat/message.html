@@ -18,11 +18,11 @@
                         <span class="message-body">{{ message.body|safe }}</span></h3>
                     </div>
                     {% if current_user.is_authenticated %}
-                    <div class="ui icon left center pointing dropdown ellipsis-icon" >
-                                <i class="ellipsis horizontal icon"></i>
-                                <div class="menu" data-offset="-33">
+                    <div class="ui icon left dropdown ellipsis-icon" >
+                                <i class="ellipsis vertical icon"></i>
+                                <div class="menu" data-offset="-33" style="float:left;">
                                     <div class="item quote-button">
-                                        <i class="quote left icon"></i> Quote
+                                        Quote
                                     </div>
                                 </div>
                     </div>
