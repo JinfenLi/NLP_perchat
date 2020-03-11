@@ -14,9 +14,9 @@
 
         <div class="right menu hide-on-mobile">
             {% if current_user.is_authenticated %}
-                <div class="item">
-                    <button class="ui button orange basic" id="show-snippet-modal">Join Room</button>
-                </div>
+{#                <div class="item">#}
+{#                    <button class="ui button orange basic" id="show-snippet-modal">Join Room</button>#}
+{#                </div>#}
             {% else %}
                 <div class="item">
                     <a class="ui primary button" href="{{ url_for('auth.login') }}">

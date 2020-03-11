@@ -84,6 +84,218 @@ def register_commands(app):
         db.create_all()
         click.echo('Initialized database.')
 
+    # @app.cli.command()
+    # @click.option('--message', default=300, help='Quantity of messages, default is 300.')
+    # def forge(message):
+    #     """Generate fake data."""
+    #     import random
+    #     from sqlalchemy.exc import IntegrityError
+    #
+    #     from faker import Faker
+    #
+    #     fake = Faker()
+    #
+    #     click.echo('Initializing the database...')
+    #     db.drop_all()
+    #     db.create_all()
+    #
+    #     click.echo('Forging the data...')
+    #     admin = User(nickname='admin', email='admin@qq.com')
+    #     admin.set_password('admin')
+    #     db.session.add(admin)
+    #     db.session.commit()
+    #
+    #     click.echo('Generating users...')
+    #     users = []
+    #     for i in range(50):
+    #         user = User(nickname='u'+str(i),
+    #                     bio=fake.sentence(),
+    #                     github=fake.url(),
+    #                     website=fake.url(),
+    #                     email=fake.email()
+    #                     )
+    #         user.set_password('123456')
+    #         db.session.add(user)
+    #         users.append(user)
+    #         try:
+    #             db.session.commit()
+    #         except IntegrityError:
+    #             db.session.rollback()
+    #
+    #     user = User(nickname='wangjutou',
+    #                 email='wang@qq.com'
+    #                 )
+    #     user.set_password('123456')
+    #     db.session.add(user)
+    #     db.session.commit()
+    #
+    #
+    #     # click.echo('Generating messages...')
+    #     # messages=[]
+    #     # for i in range(message):
+    #     #     message = Message(
+    #     #         sender=User.query.get(random.randint(1, User.query.count())),
+    #     #         body=fake.sentence(),
+    #     #         timestamp=fake.date_time_between('-30d', '-2d'),
+    #     #         persuasive=0
+    #     #     )
+    #     #     db.session.add(message)
+    #     #     messages.append(message)
+    #     #
+    #     # db.session.commit()
+    #
+    #     click.echo('Generating rooms...')
+    #     rooms=[]
+    #     # click.echo(messages)
+    #     for i in range(10):
+    #
+    #         room = Room(
+    #         name = i,
+    #         description = i,
+    #         owner = admin.nickname,
+    #         room_type=0,
+    #             isShow=1
+    #         # first_owner_id = admin.id
+    #         # messages = messages[i:i+20]
+    #
+    #         )
+    #
+    #         db.session.add(room)
+    #         db.session.commit()
+    #         userhasroom = User_Has_Room(user_id=admin.id, room_id=room.id, status=1, user=admin, room=room)
+    #         db.session.add(userhasroom)
+    #         db.session.commit()
+    #         rooms.append(room)
+    #         # try:
+    #         #     db.session.commit()
+    #         # except IntegrityError:
+    #         #     db.session.rollback()
+    #
+    #     click.echo('Generating userhasroom...')
+    #     # u0,u1->private room 0
+    #
+    #     message = Message(
+    #                 sender_id=users[0].id,
+    #                 body=fake.sentence(),
+    #                 timestamp=fake.date_time_between('-34d', '-32d'),
+    #                 persuasive=0,room_id=rooms[0].id
+    #             )
+    #     db.session.add(message)
+    #     message = Message(
+    #         sender_id=users[1].id,
+    #         body=fake.sentence(),
+    #         timestamp=fake.date_time_between('-30d', '-2d'),
+    #         persuasive=0, room_id=rooms[0].id
+    #     )
+    #     db.session.add(message)
+    #     rooms[0].owner=''
+    #     rooms[0].room_type = 1
+    #     user_has_room = User_Has_Room(status=0,quit_time=fake.date_time_between('-32d', '-30d'))
+    #     user_has_room.user = users[0]
+    #     rooms[0].first_owner_id = users[0].id
+    #     user_has_room.room = rooms[0]
+    #     db.session.add(user_has_room)
+    #     user_has_room = User_Has_Room(status=0)
+    #     user_has_room.user = users[1]
+    #     rooms[0].second_owner_id = users[1].id
+    #     user_has_room.room = rooms[0]
+    #     db.session.add(user_has_room)
+    #
+    #     # u0,u2->private room 1
+    #     message = Message(
+    #         sender_id=users[0].id,
+    #         body=fake.sentence(),
+    #         timestamp=fake.date_time_between('-30d', '-2d'),
+    #         persuasive=0, room_id=rooms[1].id
+    #     )
+    #     db.session.add(message)
+    #     message = Message(
+    #         sender_id=users[2].id,
+    #         body=fake.sentence(),
+    #         timestamp=fake.date_time_between('-30d', '-2d'),
+    #         persuasive=0, room_id=rooms[1].id
+    #     )
+    #     db.session.add(message)
+    #     rooms[1].owner=''
+    #     rooms[1].room_type = 1
+    #     user_has_room = User_Has_Room(status=0)
+    #     user_has_room.user = users[0]
+    #     rooms[1].first_owner_id = users[0].id
+    #     user_has_room.room = rooms[1]
+    #     db.session.add(user_has_room)
+    #     user_has_room = User_Has_Room(status=0)
+    #     user_has_room.user = users[2]
+    #     rooms[1].second_owner_id = users[2].id
+    #     user_has_room.room = rooms[1]
+    #     db.session.add(user_has_room)
+    #
+    #     # u1,u2->private room 3
+    #     message = Message(
+    #         sender_id=users[1].id,
+    #         body=fake.sentence(),
+    #         timestamp=fake.date_time_between('-30d', '-2d'),
+    #         persuasive=0, room_id=rooms[3].id
+    #     )
+    #     db.session.add(message)
+    #     message = Message(
+    #         sender_id=users[2].id,
+    #         body=fake.sentence(),
+    #         timestamp=fake.date_time_between('-30d', '-2d'),
+    #         persuasive=0, room_id=rooms[3].id
+    #     )
+    #     db.session.add(message)
+    #     rooms[3].owner=''
+    #     rooms[3].room_type=1
+    #     user_has_room = User_Has_Room(status=1)
+    #     user_has_room.user = users[1]
+    #     rooms[3].first_owner_id = users[1].id
+    #     user_has_room.room = rooms[3]
+    #     db.session.add(user_has_room)
+    #     user_has_room = User_Has_Room(status=1)
+    #     user_has_room.user = users[2]
+    #     rooms[3].second_owner_id = users[2].id
+    #     user_has_room.room = rooms[3]
+    #     db.session.add(user_has_room)
+    #     db.session.commit()
+    #
+    #     # u0,u1,u2->group room 2
+    #     message = Message(
+    #         sender_id=users[0].id,
+    #         body=fake.sentence(),
+    #         timestamp=fake.date_time_between('-34d', '-32d'),
+    #         persuasive=0, room_id=rooms[2].id
+    #     )
+    #     db.session.add(message)
+    #     message = Message(
+    #         sender_id=users[1].id,
+    #         body=fake.sentence(),
+    #         timestamp=fake.date_time_between('-30d', '-2d'),
+    #         persuasive=0, room_id=rooms[2].id
+    #     )
+    #     db.session.add(message)
+    #     message = Message(
+    #         sender_id=users[2].id,
+    #         body=fake.sentence(),
+    #         timestamp=fake.date_time_between('-30d', '-2d'),
+    #         persuasive=0, room_id=rooms[2].id
+    #     )
+    #     db.session.add(message)
+    #     user_has_room = User_Has_Room(status=1, quit_time=fake.date_time_between('-32d', '-30d'))
+    #     user_has_room.user = users[0]
+    #     rooms[2].first_owner_id = admin.id
+    #     user_has_room.room = rooms[2]
+    #     db.session.add(user_has_room)
+    #     user_has_room = User_Has_Room(status=1)
+    #     user_has_room.user = users[1]
+    #     user_has_room.room = rooms[2]
+    #     db.session.add(user_has_room)
+    #     user_has_room = User_Has_Room(status=1)
+    #     user_has_room.user = users[2]
+    #     user_has_room.room = rooms[2]
+    #     db.session.add(user_has_room)
+    #     db.session.commit()
+    #     click.echo('Done.')
+
     @app.cli.command()
     @click.option('--message', default=300, help='Quantity of messages, default is 300.')
     def forge(message):
@@ -107,14 +319,14 @@ def register_commands(app):
 
         click.echo('Generating users...')
         users = []
-        for i in range(50):
-            user = User(nickname='u'+str(i),
-                        bio=fake.sentence(),
-                        github=fake.url(),
-                        website=fake.url(),
-                        email=fake.email()
+        for i in range(100):
+            user = User(nickname='user' + str(i),
+                        bio='',
+                        github='',
+                        website='',
+                        email='user' + str(i)+'@qq.com'
                         )
-            user.set_password('123456')
+            user.set_password('12345')
             db.session.add(user)
             users.append(user)
             try:
@@ -122,176 +334,49 @@ def register_commands(app):
             except IntegrityError:
                 db.session.rollback()
 
-        user = User(nickname='wangjutou',
-                    email='wang@qq.com'
-                    )
-        user.set_password('123456')
-        db.session.add(user)
-        db.session.commit()
 
-
-        # click.echo('Generating messages...')
-        # messages=[]
-        # for i in range(message):
-        #     message = Message(
-        #         sender=User.query.get(random.randint(1, User.query.count())),
-        #         body=fake.sentence(),
-        #         timestamp=fake.date_time_between('-30d', '-2d'),
-        #         persuasive=0
-        #     )
-        #     db.session.add(message)
-        #     messages.append(message)
-        #
-        # db.session.commit()
 
         click.echo('Generating rooms...')
-        rooms=[]
+        rooms = []
         # click.echo(messages)
-        for i in range(10):
+        for i in range(100):
+            if i%2==0:
+                room = Room(
+                    name=i,
+                    description=i,
+                    owner=admin.nickname,
+                    room_type=0,
+                    isShow=1
+                    
+        
+                )
+            else:
+                room = Room(
+                    name=i,
+                    description=i,
+                    owner=admin.nickname,
+                    room_type=0,
+                    isShow=0
 
-            room = Room(
-            name = i,
-            description = i,
-            owner = admin.nickname,
-            room_type=0,
-                isShow=1
-            # first_owner_id = admin.id
-            # messages = messages[i:i+20]
-
-            )
-
+                )
+    
             db.session.add(room)
             db.session.commit()
             userhasroom = User_Has_Room(user_id=admin.id, room_id=room.id, status=1, user=admin, room=room)
             db.session.add(userhasroom)
             db.session.commit()
             rooms.append(room)
-            # try:
-            #     db.session.commit()
-            # except IntegrityError:
-            #     db.session.rollback()
+
 
         click.echo('Generating userhasroom...')
-        # u0,u1->private room 0
-
-        message = Message(
-                    sender_id=users[0].id,
-                    body=fake.sentence(),
-                    timestamp=fake.date_time_between('-34d', '-32d'),
-                    persuasive=0,room_id=rooms[0].id
-                )
-        db.session.add(message)
-        message = Message(
-            sender_id=users[1].id,
-            body=fake.sentence(),
-            timestamp=fake.date_time_between('-30d', '-2d'),
-            persuasive=0, room_id=rooms[0].id
-        )
-        db.session.add(message)
-        rooms[0].owner=''
-        rooms[0].room_type = 1
-        user_has_room = User_Has_Room(status=0,quit_time=fake.date_time_between('-32d', '-30d'))
-        user_has_room.user = users[0]
-        rooms[0].first_owner_id = users[0].id
-        user_has_room.room = rooms[0]
-        db.session.add(user_has_room)
-        user_has_room = User_Has_Room(status=0)
-        user_has_room.user = users[1]
-        rooms[0].second_owner_id = users[1].id
-        user_has_room.room = rooms[0]
-        db.session.add(user_has_room)
-
-        # u0,u2->private room 1
-        message = Message(
-            sender_id=users[0].id,
-            body=fake.sentence(),
-            timestamp=fake.date_time_between('-30d', '-2d'),
-            persuasive=0, room_id=rooms[1].id
-        )
-        db.session.add(message)
-        message = Message(
-            sender_id=users[2].id,
-            body=fake.sentence(),
-            timestamp=fake.date_time_between('-30d', '-2d'),
-            persuasive=0, room_id=rooms[1].id
-        )
-        db.session.add(message)
-        rooms[1].owner=''
-        rooms[1].room_type = 1
-        user_has_room = User_Has_Room(status=0)
-        user_has_room.user = users[0]
-        rooms[1].first_owner_id = users[0].id
-        user_has_room.room = rooms[1]
-        db.session.add(user_has_room)
-        user_has_room = User_Has_Room(status=0)
-        user_has_room.user = users[2]
-        rooms[1].second_owner_id = users[2].id
-        user_has_room.room = rooms[1]
-        db.session.add(user_has_room)
-
-        # u1,u2->private room 3
-        message = Message(
-            sender_id=users[1].id,
-            body=fake.sentence(),
-            timestamp=fake.date_time_between('-30d', '-2d'),
-            persuasive=0, room_id=rooms[3].id
-        )
-        db.session.add(message)
-        message = Message(
-            sender_id=users[2].id,
-            body=fake.sentence(),
-            timestamp=fake.date_time_between('-30d', '-2d'),
-            persuasive=0, room_id=rooms[3].id
-        )
-        db.session.add(message)
-        rooms[3].owner=''
-        rooms[3].room_type=1
-        user_has_room = User_Has_Room(status=1)
-        user_has_room.user = users[1]
-        rooms[3].first_owner_id = users[1].id
-        user_has_room.room = rooms[3]
-        db.session.add(user_has_room)
-        user_has_room = User_Has_Room(status=1)
-        user_has_room.user = users[2]
-        rooms[3].second_owner_id = users[2].id
-        user_has_room.room = rooms[3]
-        db.session.add(user_has_room)
-        db.session.commit()
 
         # u0,u1,u2->group room 2
-        message = Message(
-            sender_id=users[0].id,
-            body=fake.sentence(),
-            timestamp=fake.date_time_between('-34d', '-32d'),
-            persuasive=0, room_id=rooms[2].id
-        )
-        db.session.add(message)
-        message = Message(
-            sender_id=users[1].id,
-            body=fake.sentence(),
-            timestamp=fake.date_time_between('-30d', '-2d'),
-            persuasive=0, room_id=rooms[2].id
-        )
-        db.session.add(message)
-        message = Message(
-            sender_id=users[2].id,
-            body=fake.sentence(),
-            timestamp=fake.date_time_between('-30d', '-2d'),
-            persuasive=0, room_id=rooms[2].id
-        )
-        db.session.add(message)
-        user_has_room = User_Has_Room(status=1, quit_time=fake.date_time_between('-32d', '-30d'))
-        user_has_room.user = users[0]
-        rooms[2].first_owner_id = admin.id
-        user_has_room.room = rooms[2]
-        db.session.add(user_has_room)
-        user_has_room = User_Has_Room(status=1)
-        user_has_room.user = users[1]
-        user_has_room.room = rooms[2]
-        db.session.add(user_has_room)
-        user_has_room = User_Has_Room(status=1)
-        user_has_room.user = users[2]
-        user_has_room.room = rooms[2]
-        db.session.add(user_has_room)
-        db.session.commit()
+        for i in range(100):
+            
+        
+            user_has_room = User_Has_Room(status=1)
+            user_has_room.user = users[i]
+            user_has_room.room = rooms[i]
+            db.session.add(user_has_room)
+            db.session.commit()
         click.echo('Done.')

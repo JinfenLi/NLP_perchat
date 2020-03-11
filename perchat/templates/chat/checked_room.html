@@ -91,37 +91,37 @@
             </tbody>
         </table>
     </div>
-    <div class="container my-4">
-        <table class="table table-striped table-bordered grid" border="1" id="userwaitroom">
-            <caption class="text-center" style="border: inherit; background-color: black;caption-side: top; color:white;">Waiting Rooms</caption>
-            <thead class="thead-dark" style="background-color: #23272b">
-                <tr>
-                    <th style="color:white">Name</th>
-                    <th style="color:white">Description</th>
-                    <th style="color:white">Create Time</th>
-
-                    <th style="color:white">Total User</th>
-
-                    <th style="color:white">Status</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                {% for room in waitroom %}
-                <tr>
-                    <td>{{ room[0] }}</td>
-                    <td>{{ room[1] }}</td>
-                    <td>{{ room[2] }}</td>
-
-                    <td>{{ room[4] }}</td>
-
-                   <td> Wait</td>
-                    {% else %}
-            <td colspan="7" align="center" id="waitnoroom">No waiting rooms so far</td>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+{#    <div class="container my-4">#}
+{#        <table class="table table-striped table-bordered grid" border="1" id="userwaitroom">#}
+{#            <caption class="text-center" style="border: inherit; background-color: black;caption-side: top; color:white;">Waiting Rooms</caption>#}
+{#            <thead class="thead-dark" style="background-color: #23272b">#}
+{#                <tr>#}
+{#                    <th style="color:white">Name</th>#}
+{#                    <th style="color:white">Description</th>#}
+{#                    <th style="color:white">Create Time</th>#}
+{##}
+{#                    <th style="color:white">Total User</th>#}
+{##}
+{#                    <th style="color:white">Status</th>#}
+{##}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#                {% for room in waitroom %}#}
+{#                <tr>#}
+{#                    <td>{{ room[0] }}</td>#}
+{#                    <td>{{ room[1] }}</td>#}
+{#                    <td>{{ room[2] }}</td>#}
+{##}
+{#                    <td>{{ room[4] }}</td>#}
+{##}
+{#                   <td> Wait</td>#}
+{#                    {% else %}#}
+{#            <td colspan="7" align="center" id="waitnoroom">No waiting rooms so far</td>#}
+{#                {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
+{#    </div>#}
         </div>
 </div>
 
