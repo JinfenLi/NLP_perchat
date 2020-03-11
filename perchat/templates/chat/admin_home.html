@@ -41,18 +41,33 @@
     <div class="modal-header">Create Room</div>
     <div class="content" align="center">
     <form class="create ui form" method="post" >
-                <div class="field eight wide" >
-                    <label><span style="color:red;">* </span>name</label>
-                    <input name="name" placeholder="name" type="text" id="room-name" required="required">
+{#                <div class="field eight wide" >#}
+{#                    <label><span style="color:red;">* </span>name</label>#}
+{#                    <input name="name" placeholder="name" type="text" id="room-name" required="required">#}
+{#                </div>#}
+                <div class="field eight wide">
+                    <label><span style="color:red;">* </span>session</label>
+                    <input type="radio" class="control-label control-show"  value='M' name="session" /> Morning
+                     <input type="radio" class="control-label control-hide" value='A' name="session" /> Afternoon
                 </div>
                 <div class="field eight wide">
-                    <label>description</label>
-                    <input name="description" placeholder="description" type="text" id="room-description" required="required">
+                    <label><span style="color:red;">* </span>assign a user</label>
+                    <select id="select">
+                    {% for user in users%}
+                      <option value={{ user }}>{{ user }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
+
+
                 <div class="field eight wide">
                     <label><span style="color:red;">* </span>show persuasion feature?</label>
                     <input type="radio" class="control-label control-show"  value=1 name="category" /> Yes
                      <input type="radio" class="control-label control-hide" value=0 name="category" /> No
+                </div>
+                <div class="field eight wide">
+                    <label>description</label>
+                    <input name="description" placeholder="description" type="text" id="room-description" required="required">
                 </div>
 
             </form>

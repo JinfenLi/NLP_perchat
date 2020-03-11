@@ -88,7 +88,8 @@ def index():
 
 @chat_bp.route('/home')
 def home():
-	user_amount = User.query.count()
+	alluser = User.query.all()
+	user_amount = len(alluser)
 	# rooms = Room.query.order_by(Room.timestamp.asc())
 	
 	userhasroom = User_Has_Room.query.filter_by(user_id=current_user.id).all()
@@ -112,8 +113,12 @@ def home():
 	# rooms = [[r.name, r.description, r.timestamp.strftime('%Y-%m-%d'), len(User_Has_Room.query.filter_by(room_id=r.id, status=1,room_type=0).all()),r.id] for r in rooms]
 	if current_user.is_authenticated:
 		if current_user.is_admin:
-			
-			return render_template('chat/admin_home.html', rooms=admin_rooms, user_amount=user_amount)
+			u=User_Has_Room.query.all()
+			assignusersid = [uu.user_id for uu in u]
+			allusersid = [uu.id for uu in alluser]
+			notassignid = set(allusersid)-set(assignusersid)
+			users = [User.query.filter_by(id=uid).first().nickname for uid in notassignid if uid!=current_user.id]
+			return render_template('chat/admin_home.html', rooms=admin_rooms, user_amount=user_amount,users=users)
 		else:
 			
 			roomids = [r.room_id for r in User_Has_Room.query.filter_by(user_id=current_user.id).all()]

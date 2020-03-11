@@ -13,6 +13,7 @@ from perchat.models import User,Room,User_Has_Room,Message,Revised_Message
 import json
 from perchat.utils import save_messages,save_users
 import html2text
+import time
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -30,16 +31,12 @@ def block_user(user_id):
 
 @admin_bp.route('/createroom', methods=['POST'])
 def createroom():
-    # if not current_user.is_admin:
-    #     abort(403)
-    # if request.method == 'POST':
-    data = json.loads(request.form.get('data'))
-    # print("data",data)
-    name = data['name']
-    description = data['description']
-    showpersuasive = data['showpersuasive']
+
+    name = time.strftime("%m-%d-")+request.form['name']
+    description = request.form['description']
+    showpersuasive = request.form['showpersuasive']
+    user=request.form['user']
     room = Room.query.filter_by(name=name).first()
-    # print(room)
     if room is not None:
         return jsonify({"message": 'The room already exists, please re-enter.',
                         "result": 0,
@@ -50,17 +47,17 @@ def createroom():
 
         room = Room(name=name, description=description,owner=current_user.nickname,room_type=0,isShow=showpersuasive)
         userhasroom = User_Has_Room(user_id=current_user.id,room_id=room.id,status=1,user = current_user, room = room)
+        u=User.query.filter_by(nickname=user).first()
+        userhasroom1 = User_Has_Room(user_id=u.id, room_id=room.id, status=1, user=u, room=room)
         db.session.add(room)
         db.session.add(userhasroom)
+        db.session.add(userhasroom1)
         db.session.commit()
         r = Room.query.filter_by(name=name).first()
-        data={'name':r.name,'description':r.description,'time':r.timestamp.strftime('%Y-%m-%d'),'totaluser':1,'show':'Yes' if r.isShow else 'No','id':r.id,
+        data={'name':r.name,'description':r.description,'time':r.timestamp.strftime('%Y-%m-%d'),'totaluser':2,'show':'Yes' if r.isShow else 'No','id':r.id,
               'deleteurl':url_for('admin.deleteroom', room_id=r.id),'startchaturl':url_for('chat.startchat', room_name=r.name)
               }
-        # room = [r.name, r.description, r.timestamp.strftime('%Y-%m-%d'), r.owner,
-        #   0, r.id]
 
-        # redirect(url_for('.home'))
 
         return jsonify({"message": 'successfully create',
                         "result": 1,

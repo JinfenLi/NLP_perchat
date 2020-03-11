@@ -320,11 +320,11 @@ def register_commands(app):
         click.echo('Generating users...')
         users = []
         for i in range(100):
-            user = User(nickname='user' + str(i),
+            user = User(nickname='user' + str(i+1),
                         bio='',
                         github='',
                         website='',
-                        email='user' + str(i)+'@qq.com'
+                        email='user' + str(i+1)+'@qq.com'
                         )
             user.set_password('12345')
             db.session.add(user)
@@ -336,47 +336,47 @@ def register_commands(app):
 
 
 
-        click.echo('Generating rooms...')
-        rooms = []
-        # click.echo(messages)
-        for i in range(100):
-            if i%2==0:
-                room = Room(
-                    name=i,
-                    description=i,
-                    owner=admin.nickname,
-                    room_type=0,
-                    isShow=1
-                    
-        
-                )
-            else:
-                room = Room(
-                    name=i,
-                    description=i,
-                    owner=admin.nickname,
-                    room_type=0,
-                    isShow=0
-
-                )
-    
-            db.session.add(room)
-            db.session.commit()
-            userhasroom = User_Has_Room(user_id=admin.id, room_id=room.id, status=1, user=admin, room=room)
-            db.session.add(userhasroom)
-            db.session.commit()
-            rooms.append(room)
-
-
-        click.echo('Generating userhasroom...')
-
-        # u0,u1,u2->group room 2
-        for i in range(100):
-            
-        
-            user_has_room = User_Has_Room(status=1)
-            user_has_room.user = users[i]
-            user_has_room.room = rooms[i]
-            db.session.add(user_has_room)
-            db.session.commit()
+        # click.echo('Generating rooms...')
+        # rooms = []
+        # # click.echo(messages)
+        # for i in range(100):
+        #     if i%2==0:
+        #         room = Room(
+        #             name=i,
+        #             description=i,
+        #             owner=admin.nickname,
+        #             room_type=0,
+        #             isShow=1
+        #
+        #
+        #         )
+        #     else:
+        #         room = Room(
+        #             name=i,
+        #             description=i,
+        #             owner=admin.nickname,
+        #             room_type=0,
+        #             isShow=0
+        #
+        #         )
+        #
+        #     db.session.add(room)
+        #     db.session.commit()
+        #     userhasroom = User_Has_Room(user_id=admin.id, room_id=room.id, status=1, user=admin, room=room)
+        #     db.session.add(userhasroom)
+        #     db.session.commit()
+        #     rooms.append(room)
+        #
+        #
+        # click.echo('Generating userhasroom...')
+        #
+        # # u0,u1,u2->group room 2
+        # for i in range(100):
+        #
+        #
+        #     user_has_room = User_Has_Room(status=1)
+        #     user_has_room.user = users[i]
+        #     user_has_room.room = rooms[i]
+        #     db.session.add(user_has_room)
+        #     db.session.commit()
         click.echo('Done.')
