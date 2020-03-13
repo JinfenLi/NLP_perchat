@@ -308,8 +308,8 @@ def register_commands(app):
         fake = Faker()
 
         click.echo('Initializing the database...')
-        db.drop_all()
-        db.create_all()
+        # db.drop_all()
+        # db.create_all()
 
         click.echo('Forging the data...')
         admin = User(nickname='admin', email='admin@qq.com')
@@ -319,7 +319,7 @@ def register_commands(app):
 
         click.echo('Generating users...')
         users = []
-        for i in range(100):
+        for i in range(99):
             user = User(nickname='user' + str(i+1),
                         bio='',
                         github='',
