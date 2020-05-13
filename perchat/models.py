@@ -41,6 +41,9 @@ class User(UserMixin, db.Model):
     github = db.Column(db.String(255))
     website = db.Column(db.String(255))
     bio = db.Column(db.String(120))
+    # 0:legal,1:illegal
+    stance = db.Column('stance', db.Integer, nullable=True,default=-1)
+    # stance = db.Column(db.Integer,nullable=True,default=-1)
     messages = db.relationship('Message', back_populates='sender',cascade="all, delete-orphan")
     revised_messages = db.relationship('Revised_Message', back_populates='sender', cascade="all, delete-orphan")
     rooms = db.relationship('User_Has_Room', back_populates='user')
@@ -103,7 +106,11 @@ class Message(db.Model):
     sender = db.relationship('User', back_populates='messages')
     room_id = db.Column(db.Integer, db.ForeignKey('room.id',ondelete="CASCADE"))
     room = db.relationship('Room', back_populates='messages')
+    #0 non-persuasive, 1:persuasive, -1:greeting, 2:end
     persuasive = db.Column(db.Integer, nullable=True)
+
+    # 0:legal,1:illegal
+    stance = db.Column(db.Integer,nullable=True)
     revised_messages = db.relationship('Revised_Message', back_populates='messages',cascade="all, delete-orphan")
 
 class Revised_Message(db.Model):
@@ -117,6 +124,7 @@ class Revised_Message(db.Model):
     messages = db.relationship('Message', back_populates='revised_messages')
     room_id = db.Column(db.Integer, db.ForeignKey('room.id', ondelete="CASCADE"))
     room = db.relationship('Room', back_populates='revised_messages')
+    # lock=0: the revised not sent, 1: the revised sent
     lock = db.Column('lock', db.Integer, nullable=False,default=0)
 
 

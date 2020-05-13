@@ -15,8 +15,29 @@
                             <span class="label label-warning">non-persuasive</span>
                         {% endif %}
 
-                        <span class="message-body">{{ message.body|safe }}</span></h3>
+
+                        {% if message.body=='<p>Do you think gay marriage is legal or illegal?</p>' %}
+
+                            <span class="message-body">{{ message.body|safe }}
+                                <div id="mydiv">
+                                  <input type="radio" id="legal" class="control-label "  value=0 name="ans"><label >legal</label>
+                                    <input type="radio" id="illegal" class="control-label " value=1 name="ans" /> <label >illegal</label>
+                                </div>
+{#                            <input type="radio" id="legal" class="control-label "  value=0 name="ans" /> legal#}
+{#                            <input type="radio" id="illegal" class="control-label " value=1 name="ans" /> illegal#}
+                            </span></h3>
+
+                            <blockquote hidden id="answer"></blockquote>
+                            <p hidden id="mid">{{ message.id }}</p>
+                            {% else %}
+                            <span class="message-body">{{ message.body|safe }}</span></h3>
+                        {% endif %}
+
                     </div>
+
+
+
+
                     {% if current_user.is_authenticated %}
                     <div class="ui icon left dropdown ellipsis-icon" >
                                 <i class="ellipsis vertical icon"></i>

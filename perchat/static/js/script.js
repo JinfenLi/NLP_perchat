@@ -91,6 +91,7 @@ $(document).ready(function () {
                 $textarea.val('');
                 $("#quote").text('');
                 $('#deletequote').hide();
+                // socket.emit('chatbot', room_id,quote+data.message_body, isShow);
             }
             else {
 
@@ -99,6 +100,7 @@ $(document).ready(function () {
                     $textarea.val('');
                     $("#quote").text('');
                     $('#deletequote').hide();
+                    socket.emit('chatbot', room_id,quote+data.message_body, isShow);
 
 
                 }
@@ -132,16 +134,26 @@ $(document).ready(function () {
 
         if (e.which === ENTER_KEY && !e.shiftKey && message_body) {
             e.preventDefault();
-            // alert(isShow);
-            if(isShow==1){
-                socket.emit('check', message_body,room_id);
-            }else{
-                socket.emit('new message', quote+message_body, -1,room_id,isShow);
+            var ans = $('input:radio[name="ans"]:checked').val();
 
-                $textarea.val('');
-                $("#quote").text('');
-                $('#deletequote').hide();
+            var stance = user_stance;
+
+            if(ans!=null || stance!=-1){
+                if(isShow==1){
+                socket.emit('check', message_body,room_id);
+                }else{
+                    socket.emit('new message', quote+message_body, -1,room_id,isShow);
+
+                    $textarea.val('');
+                    $("#quote").text('');
+                    $('#deletequote').hide();
+                    socket.emit('chatbot', room_id,quote+message_body, isShow);
+                }
+
+            }else{
+                alert('please choose your stance first');
             }
+
 
         }
     }
@@ -205,6 +217,49 @@ $(document).ready(function () {
 
 
             });
+
+    // $('#legal').click(function () {
+    //      $("#answer").removeAttr('hidden');
+    //     $("#answer").text('>' +'your answer is: legal');
+    //     $("#mydiv").remove();
+    //     $('input:radio[name="ans"]').remove();
+    //     document.getElementsByClassName("control-label").remove();
+    //     // $('#legal').remove();
+    //     //         $('#quote').text('');
+    //     //         $('#deletequote').hide();
+    //     //         $(".messages").css("paddingBottom","10px");
+    //     // scrollToBottom();
+    //
+    //
+    //
+    //         });
+    $('body').delegate('#mydiv','click', function () {
+    // $("#mydiv").on('click',function () {
+
+
+        var ans = $('input:radio[name="ans"]:checked').val();
+        var a='';
+        if(ans==0){
+            a='legal';
+        }else{
+            a='illegal'
+        }
+
+        if(ans==null){
+            alert('please choose your stance first');
+        }else{
+
+            $("#answer").removeAttr('hidden');
+            $("#answer").text('your answer is:'+a+ '\n\n');
+            $("#mydiv").remove();
+            var mid=$("#mid").text();
+            socket.emit('update_message', 'Do you think gay marriage is legal or illegal?\n\n>your answer is:'+a+ '\n\n', mid,ans,room_id);
+            user_stance = ans;
+
+
+        }
+
+      });
 
     function messageNotify(data) {
         if (Notification.permission !== "granted")
@@ -344,7 +399,7 @@ $(document).ready(function () {
                 "<td>"+data.description+"</td>" +
                 "<td>"+data.time+"</td>"+
                 "<td>"+data.owner+"</td>"+
-                "<td>1</td>" +
+                "<td>2</td>" +
                 "<td>"+data.isShow+"</td>"+
                 "<td>Wait</td>"+
                 "</tr>";

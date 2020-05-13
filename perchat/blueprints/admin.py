@@ -104,8 +104,14 @@ def validate():
 def deleteroom(room_id):
     if not current_user.is_admin:
         abort(403)
+
     room = Room.query.get_or_404(room_id)
 
+    user = User_Has_Room.query.filter_by(room_id=room_id).all()
+    for u in user:
+        uu = u.user
+        uu.stance = -1
+        db.session.add(uu)
 
   # delete association table first and then later
     User_Has_Room.query.filter_by(room_id=room_id).delete()
@@ -127,6 +133,8 @@ def downloadmessages():
     messages = Message.query.order_by(Message.timestamp.desc()).all()
     result1=[]
     for m in messages:
+        if m.persuasive in [-1,2]:
+            continue
         room = Room.query.filter_by(id=m.room_id).first()
 
 
@@ -136,6 +144,7 @@ def downloadmessages():
         pure_text = html2text.html2text(html_body)
         create_time= m.timestamp
         sender = m.sender.nickname
+        stance = 'illegal' if m.stance else 'legal'
         if room.room_type:
 
             allusers = User_Has_Room.query.filter_by(room_id=room.id).all()
@@ -148,7 +157,7 @@ def downloadmessages():
         room_id = room.id
         persuasive = m.persuasive
         revised_time = len(Revised_Message.query.filter_by(message_id = m.id).all())
-        r = [type,mid,html_body,pure_text,create_time,sender,receiver,room_id,room_name,revised_time,persuasive]
+        r = [type,mid,html_body,pure_text,create_time,sender,receiver,room_id,room_name,revised_time,persuasive,stance]
         result1.append(r)
     revised_messages = Revised_Message.query.order_by(Revised_Message.sender_id.asc()).all()
     result2 = []
@@ -165,6 +174,7 @@ def downloadmessages():
         final_pure_text = html2text.html2text(final_text)
         create_time = m.timestamp
         sender = m.sender.nickname
+
         
         room_name = room.name
         room_id = room.id

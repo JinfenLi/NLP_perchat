@@ -16,7 +16,7 @@ from textstat.textstat import textstat
 from nltk.tokenize import sent_tokenize
 import pandas as pd
 import time
-
+from sklearn.metrics.pairwise import cosine_similarity
 def to_html(raw):
     allowed_tags = ['a', 'abbr', 'b', 'br', 'blockquote', 'code',
                     'del', 'div', 'em', 'img', 'p', 'pre', 'strong',
@@ -47,7 +47,7 @@ def save_messages(messages,revised_messages):
 
     pd.DataFrame(messages, columns=['type',
                                     'id', 'html_body','pure_text', 'create_time', 'sender_nickname', 'receiver_nickname','room_id',
-                                    'room_name', 'revised_time','persuasive'
+                                    'room_name', 'revised_time','persuasive','stance'
                                     ]).to_excel(writer,index=None,sheet_name='sent_messages')
     pd.DataFrame(revised_messages, columns=['sender',
                                     'final_message_id', 'room_id', 'final_html_text', 'final_pure_text', 'revised_message_id',
@@ -63,8 +63,8 @@ def save_users(users):
     APP_ROOT = os.path.dirname(os.path.abspath(__file__))
     filepath = os.path.join(APP_ROOT + "/static/downloads/")
     filename = "%s-%s.xlsx" % ('users', time.strftime('%Y%m%d'))
-    users = [[u.id, u.email, u.nickname, u.github, u.website,u.bio] for u in users]
-    pd.DataFrame(users, columns=[   'id', 'email', 'nickname', 'github', 'website','bio'
+    users = [[u.id, u.email, u.nickname, u.github, u.website,u.bio,'illegal' if u.stance==1 else 'legal' if u.stance==0 else 'not-assign'] for u in users]
+    pd.DataFrame(users, columns=[   'id', 'email', 'nickname', 'github', 'website','bio','stance'
                                     ]).to_excel(filepath + filename,index=None)
     return filepath, filename
 
@@ -488,3 +488,42 @@ def textCheck(text):
     # model = pickle.load(open(os.path.join(APP_ROOT,'MLmodels/lr.pickle'), 'rb'))
     # prediction = model.predict(fea)
     return predictions[0]
+
+
+def getSimilarText(text,stance,message_text,message_persuasive_count):
+
+    stance=1-stance
+
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+    with open(os.path.join(APP_ROOT,'MLmodels/vec.p'),'rb') as file:
+        vec = pickle.load(file)
+    test_vec = vec.transform([text.lower()])
+    if stance==0:
+        sheetname='legal'
+    else:
+        sheetname = 'illegal'
+
+    df = pd.read_excel(os.path.join(APP_ROOT,'MLmodels/demo_texts.xlsx'), sheet_name=sheetname)
+    # with open(os.path.join(APP_ROOT,'MLmodels/demo_texts.xlsx'),'r') as file:
+    #     demotexts = pd.read_excel(file,sheet_name=sheetname)['text'].values
+    demotext,persuasive=df['text'].values,df['persuasive']
+
+    target_per = 0
+
+    if 0 in message_persuasive_count and message_persuasive_count[0]>=2:
+        target_per = 1
+
+    results=[]
+    for dt,per in zip(demotext,persuasive):
+        test_vec2 = vec.transform([dt.lower()])
+        # print(cosine_similarity(test_vec, test_vec2))
+        if to_html(dt) not in message_text and per == target_per:
+            results.append((cosine_similarity(test_vec, test_vec2),dt,per))
+
+    results.sort()
+    te = results[-1][1]
+    if 1 in message_persuasive_count:
+        te = 'All right. Here is my final thought: '+te
+    return te,results[-1][2]
+

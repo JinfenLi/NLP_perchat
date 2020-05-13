@@ -308,18 +308,18 @@ def register_commands(app):
         fake = Faker()
 
         click.echo('Initializing the database...')
-        # db.drop_all()
-        # db.create_all()
+        db.drop_all()
+        db.create_all()
 
         click.echo('Forging the data...')
-        admin = User(nickname='admin', email='admin@qq.com')
-        admin.set_password('admin')
-        db.session.add(admin)
-        db.session.commit()
+        # admin = User(nickname='user100', email='user100@qq.com')
+        # admin.set_password('12345')
+        # db.session.add(admin)
+        # db.session.commit()
 
         click.echo('Generating users...')
         users = []
-        for i in range(99):
+        for i in range(100):
             user = User(nickname='user' + str(i+1),
                         bio='',
                         github='',
@@ -379,4 +379,32 @@ def register_commands(app):
         #     user_has_room.room = rooms[i]
         #     db.session.add(user_has_room)
         #     db.session.commit()
+        click.echo('Done.')
+
+    @app.cli.command()
+    @click.option('--message', default=300, help='Quantity of messages, default is 300.')
+    def migrateroom(message):
+
+        
+        room=Room.query.filter_by(owner='admin').all()
+        for r in room:
+            user = User.query.filter_by(nickname='admin').first()
+            user100 = User.query.filter_by(nickname='user100').first()
+            uhr=User_Has_Room.query.filter_by(room_id=r.id, user_id=user.id).first()
+
+            uhr.user_id=user100.id
+            uhr.user = user100
+            r.owner='user100'
+            
+            ms=Message.query.filter_by(room_id=r.id).all()
+            for m in ms:
+                if m.sender_id==user.id:
+                    m.sender_id = user100.id
+                    m.sender = user100
+                    db.session.add(m)
+            
+            db.session.add(r)
+            db.session.add(uhr)
+        db.session.commit()
+        
         click.echo('Done.')
