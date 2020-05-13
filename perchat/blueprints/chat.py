@@ -9,12 +9,8 @@ from perchat.extensions import socketio, db
 from perchat.forms import ProfileForm
 from perchat.models import Message, User, Room, User_Has_Room, Revised_Message
 from perchat.utils import to_html, flash_errors, textCheck,getSimilarText
-import time
-import tensorflow as tf
-import tensorflow_hub as hub
-import tensorflow.python.framework.dtypes
 
-# from perchat import bert_predict
+
 chat_bp = Blueprint('chat', __name__)
 
 online_users = []
