@@ -20,12 +20,12 @@
     <div class="pusher">
         <div class="chat-box">
 
-
             <div class="messages">
                 <div class="ui text loader">Loading messages...</div>
                 {% include 'chat/messages.html' %}
             </div>
         </div>
+    {% if not current_user.is_admin %}
     <div class="input-area" >
             <div class="ui grid form">
                 <div class=" wide column">
@@ -39,8 +39,10 @@
                             <img class="pop-card input-avatar" data-position="bottom left"
                                  data-href="{{ url_for('chat.get_profile', user_id=current_user.id) }}"
                                  src="{{ current_user.gravatar }}">
+
                             <textarea rows="5" id="message-textarea"
                                       placeholder="Write your message here... Enter to send"></textarea>
+
                         {% else %}
                             <div class="ui floating message">Please <a href="{{ url_for('auth.login') }}">Sign in</a> or
                                 <a href="{{ url_for('auth.register') }}">Sign up</a> to send message.
@@ -50,6 +52,7 @@
                 </div>
             </div>
         </div>
+    {% endif %}
     <div class="ui right fixed menu " style="width: 400px;border: 100px;">
 
         <div class="ui labeled icon right vertical inverted demo menu " style="width: 400px;" >

@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa7a9509-edec-4d77-8b3f-be1563e29f58" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data.db" beforeDir="false" afterPath="$PROJECT_DIR$/data.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/perchat/blueprints/chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/blueprints/chat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/perchat/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/perchat/templates/chat/room_message.html" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/templates/chat/room_message.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +203,8 @@
       <updated>1581410135337</updated>
       <workItem from="1589246749748" duration="1343000" />
       <workItem from="1589248808986" duration="2227000" />
-      <workItem from="1589252958217" duration="37589000" />
+      <workItem from="1589252958217" duration="37861000" />
+      <workItem from="1589919682787" duration="4839000" />
     </task>
     <servers />
   </component>
@@ -232,29 +237,29 @@
       <screen x="0" y="23" width="1440" height="794" />
     </state>
     <state x="527" y="223" key="FileChooserDialogImpl/0.23.1440.794@0.23.1440.794" timestamp="1589248330744" />
-    <state width="1358" height="189" key="GridCell.Tab.0.bottom" timestamp="1589349126185">
+    <state width="1358" height="189" key="GridCell.Tab.0.bottom" timestamp="1589927356434">
       <screen x="0" y="23" width="1440" height="794" />
     </state>
-    <state width="1358" height="189" key="GridCell.Tab.0.bottom/0.23.1440.794@0.23.1440.794" timestamp="1589349126185" />
-    <state width="1358" height="189" key="GridCell.Tab.0.center" timestamp="1589349126184">
+    <state width="1358" height="189" key="GridCell.Tab.0.bottom/0.23.1440.794@0.23.1440.794" timestamp="1589927356434" />
+    <state width="1358" height="189" key="GridCell.Tab.0.center" timestamp="1589927356433">
       <screen x="0" y="23" width="1440" height="794" />
     </state>
-    <state width="1358" height="189" key="GridCell.Tab.0.center/0.23.1440.794@0.23.1440.794" timestamp="1589349126184" />
-    <state width="1358" height="189" key="GridCell.Tab.0.left" timestamp="1589349126184">
+    <state width="1358" height="189" key="GridCell.Tab.0.center/0.23.1440.794@0.23.1440.794" timestamp="1589927356433" />
+    <state width="1358" height="189" key="GridCell.Tab.0.left" timestamp="1589927356433">
       <screen x="0" y="23" width="1440" height="794" />
     </state>
-    <state width="1358" height="189" key="GridCell.Tab.0.left/0.23.1440.794@0.23.1440.794" timestamp="1589349126184" />
-    <state width="1358" height="189" key="GridCell.Tab.0.right" timestamp="1589349126185">
+    <state width="1358" height="189" key="GridCell.Tab.0.left/0.23.1440.794@0.23.1440.794" timestamp="1589927356433" />
+    <state width="1358" height="189" key="GridCell.Tab.0.right" timestamp="1589927356433">
       <screen x="0" y="23" width="1440" height="794" />
     </state>
-    <state width="1358" height="189" key="GridCell.Tab.0.right/0.23.1440.794@0.23.1440.794" timestamp="1589349126185" />
-    <state x="249" y="79" key="SettingsEditor" timestamp="1589248821823">
+    <state width="1358" height="189" key="GridCell.Tab.0.right/0.23.1440.794@0.23.1440.794" timestamp="1589927356433" />
+    <state x="249" y="79" key="SettingsEditor" timestamp="1589411490905">
       <screen x="0" y="23" width="1440" height="794" />
     </state>
-    <state x="249" y="79" key="SettingsEditor/0.23.1440.794@0.23.1440.794" timestamp="1589248821823" />
+    <state x="249" y="79" key="SettingsEditor/0.23.1440.794@0.23.1440.794" timestamp="1589411490905" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/perchat$wh.coverage" NAME="wh Coverage Results" MODIFIED="1589255359022" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/perchat/blueprints" />
-    <SUITE FILE_PATH="coverage/perchat$perchat.coverage" NAME="perchat Coverage Results" MODIFIED="1589349082759" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/perchat$perchat.coverage" NAME="perchat Coverage Results" MODIFIED="1589927356418" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

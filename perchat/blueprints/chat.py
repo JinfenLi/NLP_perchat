@@ -356,7 +356,7 @@ def joined(room_id):
     messages=Message.query.filter_by(room_id=room_id).all()
 
     admin = User.query.filter_by(nickname=current_app.config['ADMIN']).first()
-    if not messages:
+    if not messages and not current_user.is_admin:
         message_body = to_html("Hello, how are you doing today?")
         message = Message( body=message_body, persuasive=-1,
                           room_id=room_id, sender_id=admin.id)
@@ -398,6 +398,7 @@ def joined(room_id):
         #       'nickname': admin.nickname,
         #       'user_id': admin.id},
         #      broadcast=True, room=room_id)
+
     emit('status', {'msg': current_user.nickname + ' has entered the room.'}, room=room_id)
 
 
@@ -405,8 +406,9 @@ def joined(room_id):
 def new_message(message_body, persuasive, room_id, isShow):
     """Sent by a client when the user entered a new message.
     The message is sent to all people in the room."""
-    
+
     # emit('message', {'msg': session.get('name') + ':' + message['msg']}, room=room)
+
     html_message = to_html(message_body)
     message = Message(sender=current_user._get_current_object(), body=html_message, persuasive=persuasive,
                       room_id=room_id, sender_id=current_user.id, stance = current_user.stance)
