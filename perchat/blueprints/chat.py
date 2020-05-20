@@ -533,6 +533,7 @@ def getChatbotText(room_id,message_body,isShow):
                               room_id=room_id, sender_id=admin.id, stance = 1-current_stance if 1-current_stance in [0,1] else 1)
             db.session.add(message)
             db.session.commit()
+            socketio.sleep(2)
             emit('new message',
                  {'message_html': render_template('chat/message.html', message=message, isShow=int(isShow)),
                   'message_body': html_chatbottext,

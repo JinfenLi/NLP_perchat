@@ -513,7 +513,7 @@ def getSimilarText(text,stance,message_text,message_persuasive_count):
     demotext,persuasive=df['text'].values,df['persuasive']
 
     target_per = 0
-
+    message_text = [m.replace('<p>','').replace('</p>','') for m in message_text]
     if 0 in message_persuasive_count and message_persuasive_count[0]>=2:
         target_per = 1
 
@@ -522,9 +522,13 @@ def getSimilarText(text,stance,message_text,message_persuasive_count):
         # print(dt)
         test_vec2 = vec.transform([dt.lower()])
         # print(cosine_similarity(test_vec, test_vec2))
-        for m in message_text:
-
-            if to_html(dt) not in m and per == target_per:
+        for f in fixed:
+            if dt not in message_text and per == target_per and f+dt not in message_text:
+            # for m in message_text:
+            #
+            #     if dt not in m and per == target_per:
+            #     print(m)
+                print(dt)
                 results.append((cosine_similarity(test_vec, test_vec2),dt,per))
 
     results.sort()
