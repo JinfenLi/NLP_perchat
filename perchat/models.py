@@ -109,7 +109,7 @@ class Message(db.Model):
     sender = db.relationship('User', back_populates='messages')
     room_id = db.Column(db.Integer, db.ForeignKey('room.id',ondelete="CASCADE"))
     room = db.relationship('Room', back_populates='messages')
-    #0 non-persuasive, 1:persuasive, -1:greeting, 2:end
+    #0 non-persuasive, 1:persuasive, -1:greeting/not judge/end
     persuasive = db.Column(db.Integer, nullable=True)
 
     # 0:legal,1:illegal

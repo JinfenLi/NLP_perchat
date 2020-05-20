@@ -144,6 +144,7 @@ $(document).ready(function () {
                 socket.emit('check', message_body,room_id);
 
                 }else{
+
                     socket.emit('new message', quote+message_body, -1,room_id,isShow);
 
                     $textarea.val('');

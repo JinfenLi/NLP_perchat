@@ -136,7 +136,7 @@ def downloadmessages():
     messages = Message.query.order_by(Message.timestamp.desc()).all()
     result1=[]
     for m in messages:
-        if m.persuasive in [-1,2]:
+        if m.persuasive==2:
             continue
         room = Room.query.filter_by(id=m.room_id).first()
 

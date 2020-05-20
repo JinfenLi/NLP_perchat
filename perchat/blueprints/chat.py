@@ -492,22 +492,22 @@ def getChatbotText(room_id,message_body,isShow):
 
     else:
         html_message = to_html(message_body)
-
+        room = Room.query.filter_by(id=room_id).first()
         messages = Message.query.filter_by(room_id=room_id,sender_id = admin.id).all()
         message_text = [m.body for m in messages]
         message_persuasive_count = collections.Counter([m.persuasive for m in messages])
         # print(message_persuasive_count)
-        if 2 in message_persuasive_count:
+        if room.closed:
             left(room_id)
             return redirect(url_for('chat.home'))
         elif 1 in message_persuasive_count and message_persuasive_count[1]>1:
             message_body = to_html("Great! Anyway, it’s great talking to you! I think time is up? See you~~")
-            message = Message(body=message_body, persuasive=2,
+            message = Message(body=message_body, persuasive=-1,
                               room_id=room_id, sender_id=admin.id)
 
             db.session.add(message)
             db.session.commit()
-            room = Room.query.filter_by(id = room_id).first()
+
             room.closed = 1
             db.session.add(room)
             db.session.commit()
