@@ -8,7 +8,7 @@ import collections
 from perchat.extensions import socketio, db
 from perchat.forms import ProfileForm
 from perchat.models import Message, User, Room, User_Has_Room, Revised_Message
-from perchat.utils import to_html, flash_errors, textCheck,getSimilarText
+from perchat.utils import to_html, flash_errors, textCheck,getSimilarText, judge_stance
 
 
 chat_bp = Blueprint('chat', __name__)
@@ -218,33 +218,33 @@ def get_profile(user_id):
 
 
 
-@socketio.on('update_message', namespace='/chat')
-def update_message(new_message,mid,stance,room_id):
-    # print(mid)
-    admin = User.query.filter_by(nickname=current_app.config['ADMIN']).first()
-    html_message = to_html(new_message)
-    m = Message.query.filter_by(id=mid).first()
-    m.body = html_message
-    db.session.add(m)
-    current_user.stance = stance
-    db.session.add(current_user)
-    db.session.commit()
-    message_body = to_html("Thanks for your answer. Although I have a different stance, could you tell me why you think so? ")
-    message = Message(body=message_body, persuasive=-1,
-                      room_id=room_id, sender_id=admin.id)
-
-    db.session.add(message)
-    db.session.commit()
-
-    socketio.sleep(2)
-
-    emit('new message',
-         {'message_html': render_template('chat/message.html', message=message, isShow=0),
-          'message_body': message_body,
-          'gravatar': admin.gravatar,
-          'nickname': admin.nickname,
-          'user_id': admin.id},
-         broadcast=True, room=room_id)
+# @socketio.on('update_message', namespace='/chat')
+# def update_message(new_message,mid,stance,room_id):
+#     # print(mid)
+#     admin = User.query.filter_by(nickname=current_app.config['ADMIN']).first()
+#     html_message = to_html(new_message)
+#     m = Message.query.filter_by(id=mid).first()
+#     m.body = html_message
+#     db.session.add(m)
+#     current_user.stance = stance
+#     db.session.add(current_user)
+#     db.session.commit()
+#     message_body = to_html("Thanks for your answer. Although I have a different stance, could you tell me why you think so? ")
+#     message = Message(body=message_body, persuasive=-1,
+#                       room_id=room_id, sender_id=admin.id)
+#
+#     db.session.add(message)
+#     db.session.commit()
+#
+#     socketio.sleep(2)
+#
+#     emit('new message',
+#          {'message_html': render_template('chat/message.html', message=message, isShow=0),
+#           'message_body': message_body,
+#           'gravatar': admin.gravatar,
+#           'nickname': admin.nickname,
+#           'user_id': admin.id},
+#          broadcast=True, room=room_id)
 
 
 
@@ -266,6 +266,9 @@ def check(message_body, room_id):
     result = textCheck(html_message)
     
     # result = bert_predict.predict(html_message)
+    room = Room.query.filter_by(id=room_id).first()
+    if room.closed:
+        return
     
     if result == 1:
         
@@ -371,10 +374,10 @@ def joined(room_id):
               'message_body': message_body,
               'gravatar': admin.gravatar,
               'nickname': admin.nickname,
-              'user_id': admin.id},
+              'user_id': admin.id, 'user_stance':-1},
              broadcast=True, room=room_id)
 
-        message_body = to_html("Do you think gay marriage is legal or illegal?")
+        message_body = to_html("What do you think about gay marriage? Do you think gay marriage should be legal or illegal?")
         message = Message(body=message_body, persuasive=-1,
                           room_id=room_id, sender_id=admin.id)
 
@@ -388,16 +391,9 @@ def joined(room_id):
               'message_body': message_body,
               'gravatar': admin.gravatar,
               'nickname': admin.nickname,
-              'user_id': admin.id},
+              'user_id': admin.id,'user_stance':-1},
              broadcast=True, room=room_id)
-        # socketio.sleep()
-        # emit('new message',
-        #      {'message_html': render_template('chat/message.html', message=message, isShow=int(room.isShow)),
-        #       'message_body': message_body,
-        #       'gravatar': admin.gravatar,
-        #       'nickname': admin.nickname,
-        #       'user_id': admin.id},
-        #      broadcast=True, room=room_id)
+
 
     emit('status', {'msg': current_user.nickname + ' has entered the room.'}, room=room_id)
 
@@ -408,83 +404,48 @@ def new_message(message_body, persuasive, room_id, isShow):
     The message is sent to all people in the room."""
 
     # emit('message', {'msg': session.get('name') + ':' + message['msg']}, room=room)
-
-    html_message = to_html(message_body)
-    message = Message(sender=current_user._get_current_object(), body=html_message, persuasive=persuasive,
-                      room_id=room_id, sender_id=current_user.id, stance = current_user.stance)
-    db.session.add(message)
-    db.session.commit()
-    mid = message.id
-    revised_message = Revised_Message.query.filter_by(sender_id=current_user.id, room_id=room_id, lock=0).all()
-    if revised_message:
-        for rm in revised_message:
-            rm.lock = 1
-            rm.message_id = mid
-            db.session.add(rm)
+    closed = Room.query.filter_by(id = room_id).first().closed
+    print(closed)
+    if closed:
+        return
+    else:
+        if current_user.stance == -1:
+            isShow = 0
+        html_message = to_html(message_body)
+        message = Message(sender=current_user._get_current_object(), body=html_message, persuasive=persuasive,
+                          room_id=room_id, sender_id=current_user.id, stance = current_user.stance)
+        db.session.add(message)
         db.session.commit()
+        mid = message.id
+        revised_message = Revised_Message.query.filter_by(sender_id=current_user.id, room_id=room_id, lock=0).all()
+        if revised_message:
+            for rm in revised_message:
+                rm.lock = 1
+                rm.message_id = mid
+                db.session.add(rm)
+            db.session.commit()
 
-
-
-    emit('new message',
-         {'message_html': render_template('chat/message.html', message=message, isShow=int(isShow)),
-          'message_body': html_message,
-          'gravatar': current_user.gravatar,
-          'nickname': current_user.nickname,
-          'user_id': current_user.id},
-         broadcast=True, room=room_id)
+        emit('new message',
+             {'message_html': render_template('chat/message.html', message=message, isShow=int(isShow)),
+              'message_body': html_message,
+              'gravatar': current_user.gravatar,
+              'nickname': current_user.nickname,
+              'user_id': current_user.id,'user_stance':current_user.stance},
+             broadcast=True, room=room_id)
 
 
 @socketio.on('chatbot', namespace='/chat')
 def getChatbotText(room_id,message_body,isShow):
 
     # time.sleep(5)
-    html_message = to_html(message_body)
     admin = User.query.filter_by(nickname=current_app.config['ADMIN']).first()
-    messages = Message.query.filter_by(room_id=room_id,sender_id = admin.id).all()
-    message_text = [m.body for m in messages]
-    message_persuasive_count = collections.Counter([m.persuasive for m in messages])
-    # print(message_persuasive_count)
-    if 2 in message_persuasive_count:
-        left(room_id)
-        return redirect(url_for('chat.home'))
-    elif 1 in message_persuasive_count and message_persuasive_count[1]>1:
-        message_body = to_html("Anyway, it’s great talking to you! I think time is up? See you~~")
-        message = Message(body=message_body, persuasive=2,
-                          room_id=room_id, sender_id=admin.id)
-
-        db.session.add(message)
-        db.session.commit()
-        # message = to_html("Hello, how are you doing today?")
-        socketio.sleep(2)
-        emit('new message',
-             {'message_html': render_template('chat/message.html', message=message, isShow=0),
-              'message_body': message_body,
-              'gravatar': admin.gravatar,
-              'nickname': admin.nickname,
-              'user_id': admin.id},
-             broadcast=True, room=room_id)
-
-        left(room_id)
-        return redirect(url_for('chat.home'))
-
-    else:
-
-        stance = current_user.stance
-        chatbottext,persuasive = getSimilarText(html_message,stance,message_text,message_persuasive_count)
-        html_chatbottext = to_html(chatbottext)
-        message = Message(sender=admin, body=html_chatbottext, persuasive=persuasive,
-                          room_id=room_id, sender_id=admin.id, stance = 1-stance)
-        db.session.add(message)
-        db.session.commit()
-        emit('new message',
-             {'message_html': render_template('chat/message.html', message=message, isShow=int(isShow)),
-              'message_body': html_chatbottext,
-              'gravatar': admin.gravatar,
-              'nickname': admin.nickname,
-              'user_id': admin.id},
-             broadcast=True, room=room_id)
-        if 1 in message_persuasive_count and message_persuasive_count[1]+1 > 1:
-            message_body = to_html("What is your opinion now?")
+    # print(current_user.stance)
+    current_stance = current_user.stance
+    if current_stance == -1:
+        stance = judge_stance(message_body)
+        # print(stance)
+        if stance == -1:
+            message_body = to_html("Could you tell me your stance first? Whether gay marriage is legal or illegal?")
             message = Message(body=message_body, persuasive=-1,
                               room_id=room_id, sender_id=admin.id)
 
@@ -497,8 +458,105 @@ def getChatbotText(room_id,message_body,isShow):
                   'message_body': message_body,
                   'gravatar': admin.gravatar,
                   'nickname': admin.nickname,
-                  'user_id': admin.id},
+                  'user_id': admin.id,'user_stance':-1},
                  broadcast=True, room=room_id)
+        else:
+            current_user.stance = stance
+
+            db.session.add(current_user)
+            db.session.commit()
+            # html_message = to_html(new_message)
+            # m = Message.query.filter_by(id=mid).first()
+            # m.body = html_message
+            # db.session.add(m)
+            # current_user.stance = stance
+            # db.session.add(current_user)
+            # db.session.commit()
+            message_body = to_html(
+                "Thanks for your answer. Although I have a different stance, could you first tell me why you think so? ")
+            message = Message(body=message_body, persuasive=-1,
+                              room_id=room_id, sender_id=admin.id)
+
+            db.session.add(message)
+            db.session.commit()
+
+            socketio.sleep(2)
+
+            emit('new message',
+                 {'message_html': render_template('chat/message.html', message=message, isShow=0),
+                  'message_body': message_body,
+                  'gravatar': admin.gravatar,
+                  'nickname': admin.nickname,
+                  'user_id': admin.id,
+                  'user_stance':stance},
+                 broadcast=True, room=room_id)
+
+    else:
+        html_message = to_html(message_body)
+
+        messages = Message.query.filter_by(room_id=room_id,sender_id = admin.id).all()
+        message_text = [m.body for m in messages]
+        message_persuasive_count = collections.Counter([m.persuasive for m in messages])
+        # print(message_persuasive_count)
+        if 2 in message_persuasive_count:
+            left(room_id)
+            return redirect(url_for('chat.home'))
+        elif 1 in message_persuasive_count and message_persuasive_count[1]>1:
+            message_body = to_html("Great! Anyway, it’s great talking to you! I think time is up? See you~~")
+            message = Message(body=message_body, persuasive=2,
+                              room_id=room_id, sender_id=admin.id)
+
+            db.session.add(message)
+            db.session.commit()
+            room = Room.query.filter_by(id = room_id).first()
+            room.closed = 1
+            db.session.add(room)
+            db.session.commit()
+            # message = to_html("Hello, how are you doing today?")
+            socketio.sleep(2)
+            emit('new message',
+                 {'message_html': render_template('chat/message.html', message=message, isShow=0),
+                  'message_body': message_body,
+                  'gravatar': admin.gravatar,
+                  'nickname': admin.nickname,
+                  'user_id': admin.id,'user_stance':current_stance},
+                 broadcast=True, room=room_id)
+
+            left(room_id)
+            return redirect(url_for('chat.home'))
+
+        else:
+
+
+            chatbottext,persuasive = getSimilarText(html_message,current_stance,message_text,message_persuasive_count)
+            html_chatbottext = to_html(chatbottext)
+            message = Message(sender=admin, body=html_chatbottext, persuasive=persuasive,
+                              room_id=room_id, sender_id=admin.id, stance = 1-current_stance if 1-current_stance in [0,1] else 1)
+            db.session.add(message)
+            db.session.commit()
+            emit('new message',
+                 {'message_html': render_template('chat/message.html', message=message, isShow=int(isShow)),
+                  'message_body': html_chatbottext,
+                  'gravatar': admin.gravatar,
+                  'nickname': admin.nickname,
+                  'user_id': admin.id, 'user_stance':current_stance},
+                 broadcast=True, room=room_id)
+            if 1 in message_persuasive_count and message_persuasive_count[1]+1 > 1:
+                message_body = to_html("What is your opinion now?")
+                message = Message(body=message_body, persuasive=-1,
+                                  room_id=room_id, sender_id=admin.id)
+
+                db.session.add(message)
+                db.session.commit()
+
+                socketio.sleep(2)
+                emit('new message',
+                     {'message_html': render_template('chat/message.html', message=message, isShow=0),
+                      'message_body': message_body,
+                      'gravatar': admin.gravatar,
+                      'nickname': admin.nickname,
+                      'user_id': admin.id,'user_stance':current_stance},
+                     broadcast=True, room=room_id)
 
 
 

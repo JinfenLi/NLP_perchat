@@ -94,6 +94,9 @@ class Room(db.Model):
     # 0:group 1:private
     room_type = db.Column('room_type', db.Integer, nullable=False)
     isShow = db.Column('isShow', db.Integer, nullable=False, default=1)
+    # 0:available, 1: unavailable
+    closed = db.Column('closed', db.Integer, nullable=False, default=0)
+
     revised_messages = db.relationship('Revised_Message', back_populates='room',cascade="all, delete-orphan")
 
 

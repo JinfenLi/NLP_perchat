@@ -63,6 +63,7 @@ $(document).ready(function () {
 
     if (typeof socket!=="undefined") {
         socket.on('new message', function (data) {
+            user_stance = data.user_stance;
             message_count++;
             if (!document.hasFocus()) {
                 document.title = '(' + message_count + ') ' + 'Unread';
@@ -91,7 +92,7 @@ $(document).ready(function () {
                 $textarea.val('');
                 $("#quote").text('');
                 $('#deletequote').hide();
-                // socket.emit('chatbot', room_id,quote+data.message_body, isShow);
+                socket.emit('chatbot', room_id,quote+data.message_body, isShow);
             }
             else {
 
@@ -138,9 +139,10 @@ $(document).ready(function () {
 
             var stance = user_stance;
 
-            if(ans!=null || stance!=-1){
-                if(isShow==1){
+            // if(ans!=null || stance!=-1){
+                if(isShow==1 && stance!==-1){
                 socket.emit('check', message_body,room_id);
+
                 }else{
                     socket.emit('new message', quote+message_body, -1,room_id,isShow);
 
@@ -150,9 +152,9 @@ $(document).ready(function () {
                     socket.emit('chatbot', room_id,quote+message_body, isShow);
                 }
 
-            }else{
-                alert('please choose your stance first');
-            }
+            // }else{
+            //     alert('please choose your stance first');
+            // }
 
 
         }

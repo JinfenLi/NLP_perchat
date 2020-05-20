@@ -37,6 +37,7 @@ def createroom():
     showpersuasive = request.form['showpersuasive']
     user=request.form['user']
     room = Room.query.filter_by(name=name).first()
+
     if room is not None:
         return jsonify({"message": 'The room already exists, please re-enter.',
                         "result": 0,
@@ -45,7 +46,7 @@ def createroom():
 
     else:
 
-        room = Room(name=name, description=description,owner=current_user.nickname,room_type=0,isShow=showpersuasive)
+        room = Room(name=name, description=description,owner=current_user.nickname,room_type=0,isShow=showpersuasive,closed=0)
         userhasroom = User_Has_Room(user_id=current_user.id,room_id=room.id,status=1,user = current_user, room = room)
         u=User.query.filter_by(nickname=user).first()
         userhasroom1 = User_Has_Room(user_id=u.id, room_id=room.id, status=1, user=u, room=room)
@@ -53,7 +54,9 @@ def createroom():
         db.session.add(userhasroom)
         db.session.add(userhasroom1)
         db.session.commit()
+
         r = Room.query.filter_by(name=name).first()
+
         data={'name':r.name,'description':r.description,'time':r.timestamp.strftime('%Y-%m-%d'),'totaluser':2,'show':'Yes' if r.isShow else 'No','id':r.id,
               'deleteurl':url_for('admin.deleteroom', room_id=r.id),'startchaturl':url_for('chat.startchat', room_name=r.name)
               }

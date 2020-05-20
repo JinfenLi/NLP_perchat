@@ -16,6 +16,7 @@ from textstat.textstat import textstat
 from nltk.tokenize import sent_tokenize
 import pandas as pd
 import time
+import random
 from sklearn.metrics.pairwise import cosine_similarity
 def to_html(raw):
     allowed_tags = ['a', 'abbr', 'b', 'br', 'blockquote', 'code',
@@ -491,9 +492,11 @@ def textCheck(text):
 
 
 def getSimilarText(text,stance,message_text,message_persuasive_count):
+    fixed = ['That’s a good point. ','Thanks for your answer. ']
 
     stance=1-stance
-
+    if stance not in [0,1]:
+        stance = 1
     APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
     with open(os.path.join(APP_ROOT,'MLmodels/vec.p'),'rb') as file:
@@ -525,5 +528,33 @@ def getSimilarText(text,stance,message_text,message_persuasive_count):
     te = results[-1][1]
     if 1 in message_persuasive_count:
         te = 'All right. Here is my final thought: '+te
+    else:
+        if random.random()>0.5:
+            te = random.sample(fixed, 1)[0] + te
     return te,results[-1][2]
+
+def judge_stance(message_text):
+    # -1:no stance, 0:legal, 1: illegal, 2:cannot determine
+    message_text = message_text.lower()
+    negation = ['no','not','never','hardly', 'scarcely', 'barely', 'doesn’t', 'isn’t', 'wasn’t','shouldn’t','wouldn’t',
+                'couldn’t','won’t','can’t','don’t']
+    # cannot determine
+    if 'illgeal' in message_text and 'legal' in message_text:
+        return 3
+
+    # no stance
+    elif not ('illegal' in message_text or 'legal' in message_text):
+        return -1
+    elif 'illegal' in message_text:
+        for n in negation:
+            if n+' illegal' in message_text:
+                return 0
+            else:
+                return 1
+    elif 'legal' in message_text:
+        for n in negation:
+            if n+' legal' in message_text:
+                return 1
+            else:
+                return 0
 
