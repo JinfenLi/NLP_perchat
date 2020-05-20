@@ -507,7 +507,7 @@ def getSimilarText(text,stance,message_text,message_persuasive_count):
     else:
         sheetname = 'illegal'
 
-    df = pd.read_excel(os.path.join(APP_ROOT,'MLmodels/demo_texts.xlsx'), sheet_name=sheetname)
+    df = pd.read_excel(os.path.join(APP_ROOT,'MLmodels/demo_texts.xlsx'), sheet_name=sheetname).dropna()
     # with open(os.path.join(APP_ROOT,'MLmodels/demo_texts.xlsx'),'r') as file:
     #     demotexts = pd.read_excel(file,sheet_name=sheetname)['text'].values
     demotext,persuasive=df['text'].values,df['persuasive']
@@ -519,9 +519,11 @@ def getSimilarText(text,stance,message_text,message_persuasive_count):
 
     results=[]
     for dt,per in zip(demotext,persuasive):
+        # print(dt)
         test_vec2 = vec.transform([dt.lower()])
         # print(cosine_similarity(test_vec, test_vec2))
         for m in message_text:
+
             if to_html(dt) not in m and per == target_per:
                 results.append((cosine_similarity(test_vec, test_vec2),dt,per))
 

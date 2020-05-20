@@ -405,7 +405,6 @@ def new_message(message_body, persuasive, room_id, isShow):
 
     # emit('message', {'msg': session.get('name') + ':' + message['msg']}, room=room)
     closed = Room.query.filter_by(id = room_id).first().closed
-    print(closed)
     if closed:
         return
     else:
