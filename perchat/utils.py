@@ -522,14 +522,12 @@ def getSimilarText(text,stance,message_text,message_persuasive_count):
         # print(dt)
         test_vec2 = vec.transform([dt.lower()])
         # print(cosine_similarity(test_vec, test_vec2))
+        flag = True
         for f in fixed:
-            if dt not in message_text and per == target_per and f+dt not in message_text:
-            # for m in message_text:
-            #
-            #     if dt not in m and per == target_per:
-            #     print(m)
-                print(dt)
-                results.append((cosine_similarity(test_vec, test_vec2),dt,per))
+            if f+dt in message_text:
+                flag = False
+        if dt not in message_text and per == target_per and flag:
+            results.append((cosine_similarity(test_vec, test_vec2),dt,per))
 
     results.sort()
     te = results[-1][1]

@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aa7a9509-edec-4d77-8b3f-be1563e29f58" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data.db" beforeDir="false" afterPath="$PROJECT_DIR$/data.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/blueprints/chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/blueprints/chat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/utils.py" afterDir="false" />
-    </list>
+    <list default="true" id="aa7a9509-edec-4d77-8b3f-be1563e29f58" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -204,7 +198,7 @@
       <workItem from="1589246749748" duration="1343000" />
       <workItem from="1589248808986" duration="2227000" />
       <workItem from="1589252958217" duration="37861000" />
-      <workItem from="1589919682787" duration="21988000" />
+      <workItem from="1589919682787" duration="22246000" />
     </task>
     <servers />
   </component>
