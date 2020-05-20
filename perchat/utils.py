@@ -521,8 +521,9 @@ def getSimilarText(text,stance,message_text,message_persuasive_count):
     for dt,per in zip(demotext,persuasive):
         test_vec2 = vec.transform([dt.lower()])
         # print(cosine_similarity(test_vec, test_vec2))
-        if to_html(dt) not in message_text and per == target_per:
-            results.append((cosine_similarity(test_vec, test_vec2),dt,per))
+        for m in message_text:
+            if to_html(dt) not in m and per == target_per:
+                results.append((cosine_similarity(test_vec, test_vec2),dt,per))
 
     results.sort()
     te = results[-1][1]
