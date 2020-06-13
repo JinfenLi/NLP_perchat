@@ -8,7 +8,7 @@ import collections
 from perchat.extensions import socketio, db
 from perchat.forms import ProfileForm
 from perchat.models import Message, User, Room, User_Has_Room, Revised_Message
-from perchat.utils import to_html, flash_errors, textCheck,getSimilarText, judge_stance
+from perchat.utils import to_html, flash_errors, textCheck,getFixAnswer, judge_stance
 
 
 chat_bp = Blueprint('chat', __name__)
@@ -360,7 +360,7 @@ def joined(room_id):
 
     admin = User.query.filter_by(nickname=current_app.config['ADMIN']).first()
     if not messages and not current_user.is_admin:
-        message_body = to_html("Hello, how are you doing today?")
+        message_body = to_html("Hello, how are you doing today? Do you think gay marriage should be legal or illegal?")
         message = Message( body=message_body, persuasive=-1,
                           room_id=room_id, sender_id=admin.id)
 
@@ -377,25 +377,25 @@ def joined(room_id):
               'user_id': admin.id, 'user_stance':-1},
              broadcast=True, room=room_id)
 
-        message_body = to_html("What do you think about gay marriage? Do you think gay marriage should be legal or illegal?")
-        message = Message(body=message_body, persuasive=-1,
-                          room_id=room_id, sender_id=admin.id)
-
-        db.session.add(message)
-        db.session.commit()
-
-        socketio.sleep(2)
-
-        emit('new message',
-             {'message_html': render_template('chat/message.html', message=message, isShow=0),
-              'message_body': message_body,
-              'gravatar': admin.gravatar,
-              'nickname': admin.nickname,
-              'user_id': admin.id,'user_stance':-1},
-             broadcast=True, room=room_id)
-
-
-    emit('status', {'msg': current_user.nickname + ' has entered the room.'}, room=room_id)
+    #     message_body = to_html("What do you think about gay marriage? Do you think gay marriage should be legal or illegal?")
+    #     message = Message(body=message_body, persuasive=-1,
+    #                       room_id=room_id, sender_id=admin.id)
+    #
+    #     db.session.add(message)
+    #     db.session.commit()
+    #
+    #     socketio.sleep(2)
+    #
+    #     emit('new message',
+    #          {'message_html': render_template('chat/message.html', message=message, isShow=0),
+    #           'message_body': message_body,
+    #           'gravatar': admin.gravatar,
+    #           'nickname': admin.nickname,
+    #           'user_id': admin.id,'user_stance':-1},
+    #          broadcast=True, room=room_id)
+    #
+    #
+    # emit('status', {'msg': current_user.nickname + ' has entered the room.'}, room=room_id)
 
 
 @socketio.on('new message', namespace='/chat')
@@ -444,7 +444,7 @@ def getChatbotText(room_id,message_body,isShow):
         stance = judge_stance(message_body)
         # print(stance)
         if stance == -1:
-            message_body = to_html("Could you tell me your stance first? Whether gay marriage is legal or illegal?")
+            message_body = to_html("Could you first tell me that gay marriage is legal or illegal?")
             message = Message(body=message_body, persuasive=-1,
                               room_id=room_id, sender_id=admin.id)
 
@@ -472,7 +472,7 @@ def getChatbotText(room_id,message_body,isShow):
             # db.session.add(current_user)
             # db.session.commit()
             message_body = to_html(
-                "Thanks for your answer. Although I have a different stance, could you first tell me why you think so? ")
+                "Thank you for the answer, hmmm...I disagree though. Could you tell me why you think so?")
             message = Message(body=message_body, persuasive=-1,
                               room_id=room_id, sender_id=admin.id)
 
@@ -527,7 +527,7 @@ def getChatbotText(room_id,message_body,isShow):
         else:
 
 
-            chatbottext,persuasive = getSimilarText(html_message,current_stance,message_text,message_persuasive_count)
+            chatbottext,persuasive = getFixAnswer(current_stance,message_persuasive_count)
             html_chatbottext = to_html(chatbottext)
             message = Message(sender=admin, body=html_chatbottext, persuasive=persuasive,
                               room_id=room_id, sender_id=admin.id, stance = 1-current_stance if 1-current_stance in [0,1] else 1)

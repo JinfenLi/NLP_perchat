@@ -538,6 +538,41 @@ def getSimilarText(text,stance,message_text,message_persuasive_count):
             te = random.sample(fixed, 1)[0] + te
     return te,results[-1][2]
 
+
+def getFixAnswer(stance,message_persuasive_count):
+    # (stance, persuasive): 0:legal, non-persuasive
+    fixed = {(0,0):["Nice point. But have you thought about other aspects? Do you have a friend who “acts like a gay?” Or, what if your best friend tells you one day that he/she decided to come out of the closet? Will you bless him/her?",
+             "Nice point. But have you thought about other aspects? I heard that all 50 states have admitted gay marriage since 2015. You can’t deny the decision that the popular inclined. We need a diverse world; a world allows all the possibilities to exist."],
+             (0,1):["OK, but what about other sides of this argument that are also reasonable? According to The Declaration of Independence, all men are created equal and have unalienable rights. These rights are Life, Liberty, and the pursuit of Happiness. Gays/lesbians, as humans, have the right and liberty to marry the ones they love as well. I’m not saying the conservative ideologies were 100% correct, but this one, in modern society, has to be! The social value of a human is determined by their moral quality, special skills, and the monetary value they give back to society. Since countless gay people could provide such social value, we should allow its existence. And if they find their love for their life, they should be able to get married. Also, a research study has shown that the gay marriage provides physical and psychological health advantages and relief. Gay/lesbian couples have distinctively better life quality when society recognizes all the sexual oriental!",
+                    "Nice point. But have you thought about other aspects? Many experts and scholars pointed out that the gay marriage is supposed to be defined as a secular, not a religious, institution. Religion shouldn’t draft a marriage law for the entire society. If they do not allow homosexuals to marry, just deny! I know in the U.S. (according to the constitution), the boundary is vague between the constitution and religious doctrines regarding marriage because states permit clergy to carry out both religious and civil marriage in a single ceremony. Even 53% of the members of a special religious commission formed by church leaders and lay people voted to tighten language on its same-sex marriage ban at a general conference, civil law has always been supreme in defining and regulating marriage in the modern U.S.. Marriage is a proper approach to getting moral and physical happiness"],
+             (1,0):["Nice point. But have you thought about other aspects? The majority of religions are against the homosexual marriage. Why? Cuz it betrays the god’s will! If you are a person with religious faith, do what the doctrine suggests. The homosexuals were not faithful believers whatsoever.",
+                    "Nice point. But have you thought about other aspects? I don't mean to offend gay people, but gay marriage is a critical pathway to get sexually transmitted diseases like AIDS. To reduce the infection rate and protect ourselves from getting this freaking disease, I vote for those who ban the gay marriage."],
+             (1,1):["OK, but what about other sides of this argument that are also reasonable? In light of James Watson’s theory, reproduction, also known as the copying of gene, is a biological nature for the carbon-based creatures. Genetically speaking, only sexual behaviors aiming to reproduce can pass through the filter of Darwin’s theory. Gay marriage 100% betrays the rule. There will be NO ONE on the earth to create our next generation if all of us are gays/lesbians. In fact, marriage, by itself, is considered to be an outdated and oppressive institution. Based on Dana Adam Shapiro’s research, 83% of the U.S. families and couples are suffering from the painfulness of marriage! Now, the priority is to gradually eliminate the marriage system instead of expanding it by legalizing gay marriage.",
+                    "Nice point. But have you thought about other aspects? According to a record, around 50% of the U.S population do NOT support gay marriage. All those people would be reckless paying taxes for the standpoint that they don’t cheer for. If we legalize the homosexual relationship, individuals, businesses, and the government certainly would be forced to subsidize it. Things like claiming insurance coverage, tax exemption, and receiving social security payment for a spouse will form a huge part of the taxing pie. Imagine 50% of people refuse to pay tax…. That’s gonna be crazy. Also, marriage is about societal norms. It's about legal rights. It's about families. It's about generations. It's about example. It's about commitment. It's about parental roles. If it were just about \"love\" then I could marry my dog and two kids at the local middle-school could get married as well. It's not only about love."]
+
+             }
+
+    stance=1-stance
+    if stance not in [0,1]:
+        stance = 1
+
+    texts, persuasive = '', ''
+
+    if message_persuasive_count.get(0,0) == 0:
+        texts = fixed[(stance, 0)][0]
+        persuasive = 0
+    elif message_persuasive_count.get(0,0) == 1:
+        texts = fixed[(stance, 0)][1]
+        persuasive = 0
+    elif message_persuasive_count.get(0,0)>1 and message_persuasive_count.get(1,0) == 0:
+        texts = fixed[(stance, 1)][0]
+        persuasive = 1
+    elif message_persuasive_count.get(0,0)>1 and message_persuasive_count.get(1,0) == 1:
+        texts = fixed[(stance, 1)][1]
+        persuasive = 1
+
+    return texts, persuasive
+
 def judge_stance(message_text):
     # -1:no stance, 0:legal, 1: illegal, 2:cannot determine
     message_text = message_text.lower()
