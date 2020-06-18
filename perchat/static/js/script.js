@@ -68,9 +68,9 @@ $(document).ready(function () {
             if (!document.hasFocus()) {
                 document.title = '(' + message_count + ') ' + 'Unread';
             }
-            if (data.user_id !== current_user_id) {
-                messageNotify(data);
-            }
+            // if (data.user_id !== current_user_id) {
+            //     messageNotify(data);
+            // }
             $('.messages').append(data.message_html);
             flask_moment_render_all();
             scrollToBottom();

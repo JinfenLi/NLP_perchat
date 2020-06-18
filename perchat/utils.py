@@ -541,6 +541,7 @@ def getSimilarText(text,stance,message_text,message_persuasive_count):
 
 def getFixAnswer(stance,message_persuasive_count):
     # (stance, persuasive): 0:legal, non-persuasive
+    time_delay = 30
     fixed = {(0,0):["Nice point. But have you thought about other aspects? Do you have a friend who “acts like a gay?” Or, what if your best friend tells you one day that he/she decided to come out of the closet? Will you bless him/her?",
              "Nice point. But have you thought about other aspects? I heard that all 50 states have admitted gay marriage since 2015. You can’t deny the decision that the popular inclined. We need a diverse world; a world allows all the possibilities to exist."],
              (0,1):["OK, but what about other sides of this argument that are also reasonable? According to The Declaration of Independence, all men are created equal and have unalienable rights. These rights are Life, Liberty, and the pursuit of Happiness. Gays/lesbians, as humans, have the right and liberty to marry the ones they love as well. I’m not saying the conservative ideologies were 100% correct, but this one, in modern society, has to be! The social value of a human is determined by their moral quality, special skills, and the monetary value they give back to society. Since countless gay people could provide such social value, we should allow its existence. And if they find their love for their life, they should be able to get married. Also, a research study has shown that the gay marriage provides physical and psychological health advantages and relief. Gay/lesbian couples have distinctively better life quality when society recognizes all the sexual oriental!",
@@ -567,11 +568,13 @@ def getFixAnswer(stance,message_persuasive_count):
     elif message_persuasive_count.get(0,0)>1 and message_persuasive_count.get(1,0) == 0:
         texts = fixed[(stance, 1)][0]
         persuasive = 1
+        time_delay = 100
     elif message_persuasive_count.get(0,0)>1 and message_persuasive_count.get(1,0) == 1:
         texts = fixed[(stance, 1)][1]
         persuasive = 1
+        time_delay = 100
 
-    return texts, persuasive
+    return texts, persuasive, time_delay
 
 def judge_stance(message_text):
     # -1:no stance, 0:legal, 1: illegal, 2:cannot determine

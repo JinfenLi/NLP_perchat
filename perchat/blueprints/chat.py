@@ -367,7 +367,7 @@ def joined(room_id):
         db.session.add(message)
         db.session.commit()
         # message = to_html("Hello, how are you doing today?")
-        socketio.sleep(0.1)
+        # socketio.sleep(0.1)
 
         emit('new message',
              {'message_html': render_template('chat/message.html', message=message, isShow=0),
@@ -479,7 +479,7 @@ def getChatbotText(room_id,message_body,isShow):
             db.session.add(message)
             db.session.commit()
 
-            socketio.sleep(2)
+            socketio.sleep(4)
 
             emit('new message',
                  {'message_html': render_template('chat/message.html', message=message, isShow=0),
@@ -512,7 +512,7 @@ def getChatbotText(room_id,message_body,isShow):
             db.session.add(room)
             db.session.commit()
             # message = to_html("Hello, how are you doing today?")
-            socketio.sleep(2)
+            socketio.sleep(5)
             emit('new message',
                  {'message_html': render_template('chat/message.html', message=message, isShow=0),
                   'message_body': message_body,
@@ -527,13 +527,13 @@ def getChatbotText(room_id,message_body,isShow):
         else:
 
 
-            chatbottext,persuasive = getFixAnswer(current_stance,message_persuasive_count)
+            chatbottext,persuasive, time_delay = getFixAnswer(current_stance,message_persuasive_count)
             html_chatbottext = to_html(chatbottext)
             message = Message(sender=admin, body=html_chatbottext, persuasive=persuasive,
                               room_id=room_id, sender_id=admin.id, stance = 1-current_stance if 1-current_stance in [0,1] else 1)
             db.session.add(message)
             db.session.commit()
-            socketio.sleep(2)
+            socketio.sleep(time_delay)
             emit('new message',
                  {'message_html': render_template('chat/message.html', message=message, isShow=int(isShow)),
                   'message_body': html_chatbottext,
@@ -549,7 +549,7 @@ def getChatbotText(room_id,message_body,isShow):
                 db.session.add(message)
                 db.session.commit()
 
-                socketio.sleep(2)
+                socketio.sleep(3)
                 emit('new message',
                      {'message_html': render_template('chat/message.html', message=message, isShow=0),
                       'message_body': message_body,
