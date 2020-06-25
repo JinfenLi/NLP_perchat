@@ -367,7 +367,7 @@ def joined(room_id):
         db.session.add(message)
         db.session.commit()
         # message = to_html("Hello, how are you doing today?")
-        # socketio.sleep(0.1)
+        socketio.sleep(2)
 
         emit('new message',
              {'message_html': render_template('chat/message.html', message=message, isShow=0),
