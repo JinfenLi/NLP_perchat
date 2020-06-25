@@ -527,7 +527,7 @@ def getChatbotText(room_id,message_body,isShow):
         else:
 
 
-            chatbottext,persuasive, time_delay = getFixAnswer(current_stance,message_persuasive_count)
+            chatbottext,persuasive, time_delay = getFixAnswer(message_body, current_stance,message_persuasive_count)
             html_chatbottext = to_html(chatbottext)
             message = Message(sender=admin, body=html_chatbottext, persuasive=persuasive,
                               room_id=room_id, sender_id=admin.id, stance = 1-current_stance if 1-current_stance in [0,1] else 1)

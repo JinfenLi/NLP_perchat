@@ -319,14 +319,17 @@ def register_commands(app):
 
         click.echo('Generating users...')
         users = []
-        for i in range(100):
+        for i in range(200):
             user = User(nickname='user' + str(i+1),
                         bio='',
                         github='',
                         website='',
                         email='user' + str(i+1)+'@qq.com'
                         )
-            user.set_password('12345')
+            if i==99:
+                user.set_password('admin')
+            else:
+                user.set_password('12345')
             db.session.add(user)
             users.append(user)
             try:
