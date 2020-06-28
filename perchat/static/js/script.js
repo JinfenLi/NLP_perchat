@@ -424,23 +424,23 @@ $(document).ready(function () {
     $('#createroom').on('click',function () {
 
         var name =$("#room-name").val();
-        var session = $('input:radio[name="session"]:checked').val();
+        // var session = $('input:radio[name="session"]:checked').val();
         var assignuser=$("#select option:selected").val();
         var description = $("#room-description").val();
         var showpersuasive = $('input:radio[name="category"]:checked').val();
-        if(session==null || assignuser==null ||  showpersuasive==null){
+        if(assignuser==null ||  showpersuasive==null){
             alert('please complete all the fields');
 
 
         }else{
-            var data= {
+        var data= {
 
-                        'name': session+'-B-'+assignuser,"description":description,'showpersuasive':showpersuasive,"user":assignuser
+                    'name': '-B-'+assignuser,"description":description,'showpersuasive':showpersuasive,"user":assignuser
 
-                };
-            if(showpersuasive==1){
-                data.name=session+'-A-'+assignuser
-            }
+            };
+        if(showpersuasive==1){
+            data.name='-A-'+assignuser
+        }
 
 
 

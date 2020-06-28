@@ -319,14 +319,14 @@ def register_commands(app):
 
         click.echo('Generating users...')
         users = []
-        for i in range(200):
+        for i in range(201):
             user = User(nickname='user' + str(i+1),
                         bio='',
                         github='',
                         website='',
                         email='user' + str(i+1)+'@qq.com'
                         )
-            if i==99:
+            if i==200:
                 user.set_password('admin')
             else:
                 user.set_password('12345')

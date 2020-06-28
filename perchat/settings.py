@@ -20,7 +20,7 @@ else:
 
 class BaseConfig:
     MESSAGE_PER_PAGE = 30
-    ADMIN = os.getenv('ADMIN', 'user100')
+    ADMIN = os.getenv('ADMIN', 'user201')
 
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev key')
 
