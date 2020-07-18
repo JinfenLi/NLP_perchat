@@ -367,7 +367,7 @@ def joined(room_id):
         db.session.add(message)
         db.session.commit()
         # message = to_html("Hello, how are you doing today?")
-        socketio.sleep(2)
+        socketio.sleep(3)
 
         emit('new message',
              {'message_html': render_template('chat/message.html', message=message, isShow=0),
@@ -479,7 +479,7 @@ def getChatbotText(room_id,message_body,isShow):
             db.session.add(message)
             db.session.commit()
 
-            socketio.sleep(4)
+            socketio.sleep(6)
 
             emit('new message',
                  {'message_html': render_template('chat/message.html', message=message, isShow=0),
@@ -512,7 +512,7 @@ def getChatbotText(room_id,message_body,isShow):
             db.session.add(room)
             db.session.commit()
             # message = to_html("Hello, how are you doing today?")
-            socketio.sleep(5)
+            socketio.sleep(6)
             emit('new message',
                  {'message_html': render_template('chat/message.html', message=message, isShow=0),
                   'message_body': message_body,
@@ -549,7 +549,7 @@ def getChatbotText(room_id,message_body,isShow):
                 db.session.add(message)
                 db.session.commit()
 
-                socketio.sleep(3)
+                socketio.sleep(4)
                 emit('new message',
                      {'message_html': render_template('chat/message.html', message=message, isShow=0),
                       'message_body': message_body,

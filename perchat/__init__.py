@@ -342,12 +342,15 @@ def register_commands(app):
         # click.echo('Generating rooms...')
         # rooms = []
         # # click.echo(messages)
-        # for i in range(100):
-        #     if i%2==0:
+        # for i in range(200):
+        #     if i+1 in [1,2,3,5,8,9,10,11,12,14,15,18,20,26,27,28,30,32,33,36,39,41,43,46,50,52,57,58,65,66,67,68,69,71,72,73,75,77,78,79,82,83,84,
+        #              89,90,92,93,94,95,96,97,98,99,101,102,103,104,107,109,110,111,116,117,118,119,120,122,125,126,128,129,130,131,133,137,138,139,
+        #              143,146,150,151,153,154,155,156,158,159,162,163,166,167,168,169,170,172,174,175,176,186,188,191,194,196,197,198,199,200]:
+        #
         #         room = Room(
-        #             name=i,
-        #             description=i,
-        #             owner=admin.nickname,
+        #             name='06-29--A-user'+str(i+1),
+        #             description='',
+        #             owner='user201',
         #             room_type=0,
         #             isShow=1
         #
@@ -355,33 +358,24 @@ def register_commands(app):
         #         )
         #     else:
         #         room = Room(
-        #             name=i,
-        #             description=i,
-        #             owner=admin.nickname,
+        #             name='06-29--B-user'+str(i+1),
+        #             description='',
+        #             owner='user201',
         #             room_type=0,
         #             isShow=0
         #
         #         )
-        #
+        #     common_user = User.query.filter_by(nickname='user'+str(i+1)).first()
+        #     admin_user = User.query.filter_by(nickname='user201').first()
         #     db.session.add(room)
         #     db.session.commit()
-        #     userhasroom = User_Has_Room(user_id=admin.id, room_id=room.id, status=1, user=admin, room=room)
+        #     userhasroom = User_Has_Room( room_id=room.id, status=1, user=common_user, room=room)
+        #     db.session.add(userhasroom)
+        #     userhasroom = User_Has_Room(room_id=room.id, status=1, user=admin_user, room=room)
         #     db.session.add(userhasroom)
         #     db.session.commit()
         #     rooms.append(room)
-        #
-        #
-        # click.echo('Generating userhasroom...')
-        #
-        # # u0,u1,u2->group room 2
-        # for i in range(100):
-        #
-        #
-        #     user_has_room = User_Has_Room(status=1)
-        #     user_has_room.user = users[i]
-        #     user_has_room.room = rooms[i]
-        #     db.session.add(user_has_room)
-        #     db.session.commit()
+
         click.echo('Done.')
 
     @app.cli.command()
