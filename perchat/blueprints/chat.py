@@ -541,22 +541,22 @@ def getChatbotText(room_id,message_body,isShow):
                   'nickname': admin.nickname,
                   'user_id': admin.id, 'user_stance':current_stance},
                  broadcast=True, room=room_id)
-            if 1 in message_persuasive_count and message_persuasive_count[1]+1 > 1:
-                message_body = to_html("What is your opinion now?")
-                message = Message(body=message_body, persuasive=-1,
-                                  room_id=room_id, sender_id=admin.id)
-
-                db.session.add(message)
-                db.session.commit()
-
-                socketio.sleep(4)
-                emit('new message',
-                     {'message_html': render_template('chat/message.html', message=message, isShow=0),
-                      'message_body': message_body,
-                      'gravatar': admin.gravatar,
-                      'nickname': admin.nickname,
-                      'user_id': admin.id,'user_stance':current_stance},
-                     broadcast=True, room=room_id)
+            # if 1 in message_persuasive_count and message_persuasive_count[1]+1 > 1:
+            #     message_body = to_html("What is your opinion now?")
+            #     message = Message(body=message_body, persuasive=-1,
+            #                       room_id=room_id, sender_id=admin.id)
+            #
+            #     db.session.add(message)
+            #     db.session.commit()
+            #
+            #     socketio.sleep(4)
+            #     emit('new message',
+            #          {'message_html': render_template('chat/message.html', message=message, isShow=0),
+            #           'message_body': message_body,
+            #           'gravatar': admin.gravatar,
+            #           'nickname': admin.nickname,
+            #           'user_id': admin.id,'user_stance':current_stance},
+            #          broadcast=True, room=room_id)
 
 
 
