@@ -17,6 +17,24 @@ blockquote p {
 
 }
 
+.loading:after {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    animation: ellipsis 2s infinite;
+    content: "\2026"; /* ascii code for the ellipsis character */
+}
+@keyframes ellipsis {
+    from {
+        width: 2px;
+    }
+    to {
+        width: 15px;
+    }
+}
+
+
+
 @media screen and (max-width: 600px) {
     .hide-on-mobile {
         visibility: hidden;
@@ -87,6 +105,14 @@ blockquote p {
     margin-right: 10px;
 }
 
+.msg-box-load .picture {
+    float: left;
+    width: 50px;
+    display: block;
+    padding-right: 15px;
+    margin-right: 10px;
+}
+
 .ellipsis-icon {
     /*float: left;*/
     position: absolute;
@@ -119,6 +145,30 @@ blockquote p {
     box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
     position: relative;
     overflow-x: auto;
+}
+
+.msgload {
+    background: #ECECEC;
+    display: inline-block;
+    padding: 12px;
+    width: auto;
+    max-width: 55%;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    position: relative;
+    overflow-x: auto;
+
+}
+.msgload:before {
+    content: "";
+    position: relative;
+    display: block;
+    left: 0;
+    border-right: 6px solid #ECECEC;
+    border-top: 0px solid transparent;
+    border-bottom: 0px solid transparent;
+    top: 10px;
+    margin-left: -6px;
 }
 
 .msg img {

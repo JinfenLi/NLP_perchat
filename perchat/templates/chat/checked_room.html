@@ -24,9 +24,9 @@
                 {% for room in rooms %}
                 <tr>
                     <td>
-                        {% if room[0]!=0 %}
-                        <span class="badge badge-danger" style="background-color: red;color:white">{{ room[0] }}</span>
-                        {% endif %}
+{#                        {% if room[0]!=0 %}#}
+{#                        <span class="badge badge-danger" style="background-color: red;color:white">{{ room[0] }}</span>#}
+{#                        {% endif %}#}
                         {{ room[1] }}</td>
                     <td>{{ room[2] }}</td>
                     <td>{{ room[3] }}</td>
@@ -40,6 +40,8 @@
             <td>
                 <a class="btn btn-success" href="{{ url_for('chat.startchat', room_name=room[1]) }}" target="_blank">
 
+{#                    <a class="btn btn-success" onclick="Win('chat.startchat');">#}
+{#                Win('about:blank');#}
     </a>
 
 
@@ -84,7 +86,10 @@
                     <td>{{ room[3] }}</td>
                     <td>{{ room[5] }}</td>
 
-                    <td> <a class="btn btn-success" href="{{ url_for('chat.startchat',room_name=room[1]) }}" target="_blank"></a></td>
+                    <td>
+                        <a class="btn btn-success" href="{{ url_for('chat.startchat',room_name=room[1]) }}" target="_blank">
+
+                    </a></td>
                     {% else %}
             <td colspan="7" align="center">No rooms so far</td>
                 {% endfor %}

@@ -62,7 +62,9 @@ $(document).ready(function () {
     }
 
     if (typeof socket!=="undefined") {
+
         socket.on('new message', function (data) {
+            $('.msg-box-load').remove();
             user_stance = data.user_stance;
             message_count++;
             if (!document.hasFocus()) {
@@ -78,11 +80,25 @@ $(document).ready(function () {
         });
 
     }
+
+    if (typeof socket!=="undefined") {
+        socket.on('load message', function (data) {
+
+
+            $('.messages').append(data.load_message_html);
+            scrollToBottom();
+            activateSemantics();
+        });
+    }
+
+
+
+
     if (typeof socket!=="undefined"){
         socket.on('check', function (data) {
         var quote = $('#quote').text();
         var $textarea = $('#message-textarea');
-
+        var time_delay = 30;
         if (data.user_id === current_user_id) {
 
 
@@ -92,7 +108,17 @@ $(document).ready(function () {
                 $textarea.val('');
                 $("#quote").text('');
                 $('#deletequote').hide();
+
+                // setTimeout(function(){
+                socket.emit('load message', room_id, 30);
+                // }, 3000);
+                // setTimeout(function(){
+
                 socket.emit('chatbot', room_id,quote+data.message_body, isShow);
+                // }, data.time_delay);
+
+
+
             }
             else {
 
@@ -101,7 +127,15 @@ $(document).ready(function () {
                     $textarea.val('');
                     $("#quote").text('');
                     $('#deletequote').hide();
-                    socket.emit('chatbot', room_id,quote+data.message_body, isShow);
+                    // setTimeout(function(){
+                socket.emit('load message', room_id, 30);
+                // }, 3000);
+
+                    // setInterval(function(){
+
+                socket.emit('chatbot', room_id,quote+data.message_body, isShow);
+                // }, 60000);
+
 
 
                 }
@@ -126,37 +160,34 @@ $(document).ready(function () {
     }
 
 
+
     function new_message(e) {
         var $textarea = $('#message-textarea');
         var message_body = $textarea.val().trim();
+        var time_delay = 30;
         var quote = $('#quote').text();
-
-
-
         if (e.which === ENTER_KEY && !e.shiftKey && message_body) {
             e.preventDefault();
             var ans = $('input:radio[name="ans"]:checked').val();
 
             var stance = user_stance;
 
-            // if(ans!=null || stance!=-1){
-                if(isShow==1 && stance!==-1){
-                socket.emit('check', message_body,room_id);
+            if(isShow==1 && stance!==-1){
+            socket.emit('check', message_body,room_id);
 
-                }else{
+            }else{
 
-                    socket.emit('new message', quote+message_body, -1,room_id,isShow);
+                socket.emit('new message', quote+message_body, -1,room_id,isShow);
+                $textarea.val('');
+                $("#quote").text('');
+                $('#deletequote').hide();
+                // setTimeout(function () {
+                socket.emit('load message', room_id, 30);
+            socket.emit('chatbot', room_id,quote+message_body, isShow);
+                // }, 10000);
 
-                    $textarea.val('');
-                    $("#quote").text('');
-                    $('#deletequote').hide();
-                    socket.emit('chatbot', room_id,quote+message_body, isShow);
-                }
 
-            // }else{
-            //     alert('please choose your stance first');
-            // }
-
+            }
 
         }
     }
@@ -221,21 +252,7 @@ $(document).ready(function () {
 
             });
 
-    // $('#legal').click(function () {
-    //      $("#answer").removeAttr('hidden');
-    //     $("#answer").text('>' +'your answer is: legal');
-    //     $("#mydiv").remove();
-    //     $('input:radio[name="ans"]').remove();
-    //     document.getElementsByClassName("control-label").remove();
-    //     // $('#legal').remove();
-    //     //         $('#quote').text('');
-    //     //         $('#deletequote').hide();
-    //     //         $(".messages").css("paddingBottom","10px");
-    //     // scrollToBottom();
-    //
-    //
-    //
-    //         });
+
     $('body').delegate('#mydiv','click', function () {
     // $("#mydiv").on('click',function () {
 
@@ -557,8 +574,14 @@ $(document).ready(function () {
 
     if (typeof socket!=="undefined" && (socket.nsp === '/privatechat' || socket.nsp === '/chat')){
         socket.on('connect', function() {
+
             $('#message-textarea').focus();
             if (room_id.length>0){
+                var time_delay = 1;
+                if(!$("#div").hasClass('msg-box-load')){
+                     socket.emit('load message', room_id, 1);
+                   }
+
                 socket.emit('joined', room_id);
 
             }});
@@ -568,6 +591,30 @@ $(document).ready(function () {
 
 
     init();
+
+    // // document.getElementById("keydown").addEventListener("keydown", function (event) {
+    //     $('#keydown').on('keydown', function(event){
+    //     if ((event.altKey)&&
+    //     ((event.code===37)|| //屏蔽 Alt+ 方向键 ←
+    //     (event.code===39))){ //屏蔽 Alt+ 方向键 →
+    //     alert("不准你使用ALT+方向键前进或后退网页！");
+    //     event.returnValue=false;
+    //     }
+    //     if (event.code===116){ //屏蔽 F5 刷新键
+    //         alert("禁止F5刷新网页！");
+    //         event.code=0;
+    //         event.returnValue=false;
+    //     }
+    //     if ((event.ctrlKey)&&(event.code===82)){ //屏蔽 Ctrl+R
+    //         alert("禁止Ctrl+R刷新网页！");
+    //         event.returnValue=false;
+    //     }
+    //     if ((event.shiftKey)&&(event.code===121)){ //屏蔽 shift+F10
+    //         alert("禁止shift+F10刷新网页！");
+    //         event.returnValue=false;
+    //     }
+    // });
+
 
 
 });
@@ -595,3 +642,36 @@ function showhelp(){
             $('.ui.modal.help').modal({blurring: true}).modal('show');
         // });
 }
+
+// function KeyDown(){
+//     //alert(22);
+//     if ((window.event.altKey)&&
+//     ((window.event.keyCode===37)|| //屏蔽 Alt+ 方向键 ←
+//     (window.event.keyCode===39))){ //屏蔽 Alt+ 方向键 →
+//     alert("don't go back!");
+//     event.returnValue=false;
+//     }
+//     if (event.keyCode===116){ //屏蔽 F5 刷新键
+//         alert("don't refresh this page！");
+//         event.keyCode=0;
+//         event.returnValue=false;
+//     }
+//     if ((event.ctrlKey)&&(event.keyCode===82)){ //屏蔽 Ctrl+R
+//         alert("don't refresh this page！");
+//         event.returnValue=false;
+//     }
+//     if ((event.shiftKey)&&(event.keyCode===121)){ //屏蔽 shift+F10
+//         alert("don't refresh this page！");
+//         event.returnValue=false;
+//     }
+//     if ((event.metaKey)&&(event.keyCode===82)){
+//         alert("don't refresh this page！");
+//         event.returnValue=false;
+//     }
+//
+//     if ((event.shiftKey)&&(event.metaKey)&&(event.keyCode===82)){
+//         alert("don't refresh this page！");
+//         event.returnValue=false;
+//     }
+// }
+

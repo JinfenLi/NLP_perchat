@@ -1,3 +1,5 @@
+
+
 <div class="msg-box" >
                     <div class="picture">
                         <img class="pop-card" data-position="right center" data-offset="-40"
@@ -5,6 +7,7 @@
                              src="{{ message.sender.gravatar }}">
                     </div>
                     <div class="msg" >
+
                         <h3><span class="nickname" style="color:palevioletred">{{ message.sender.nickname }}</span>
                         <small class="timestamp">{{ moment(message.timestamp).format('lll') }}</small>
 
@@ -16,24 +19,12 @@
                         {% endif %}
 
 
-{#                        {% if message.body=='<p>Do you think gay marriage is legal or illegal?</p>' %}#}
-{##}
-{#                            <span class="message-body">{{ message.body|safe }}#}
-{#                                <div id="mydiv">#}
-{#                                  <input type="radio" id="legal" class="control-label "  value=0 name="ans"><label >legal</label>#}
-{#                                    <input type="radio" id="illegal" class="control-label " value=1 name="ans" /> <label >illegal</label>#}
-{#                                </div>#}
-{#                            <input type="radio" id="legal" class="control-label "  value=0 name="ans" /> legal#}
-{#                            <input type="radio" id="illegal" class="control-label " value=1 name="ans" /> illegal#}
-{#                            </span></h3>#}
-{##}
-{#                            <blockquote hidden id="answer"></blockquote>#}
-{#                            <p hidden id="mid">{{ message.id }}</p>#}
-{#                            {% else %}#}
-{#                            #}
-{#                        {% endif %}#}
-                    <span class="message-body">{{ message.body|safe }}</span></h3>
+
+                    <span class="message-body">{{ message.body|safe }}</span>
+
+                        </h3>
                     </div>
+
 
 
 

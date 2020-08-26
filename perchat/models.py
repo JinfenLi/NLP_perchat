@@ -98,6 +98,7 @@ class Room(db.Model):
     closed = db.Column('closed', db.Integer, nullable=False, default=0)
 
     revised_messages = db.relationship('Revised_Message', back_populates='room',cascade="all, delete-orphan")
+    # last_update_time = db.Column(db.DateTime, default=datetime.utcnow, index=True)
 
 
 

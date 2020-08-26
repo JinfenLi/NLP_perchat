@@ -1,16 +1,23 @@
-
 {% extends 'base.html' %}
 
 {% block nav %}
+
+
+{#    oncontextmenu="event.returnValue=false"#}
     <div class="ui top fixed borderless menu" style="width: 1800px;">
 
         <a class="item catchat" href="{{ url_for('chat.index') }}">
             <img src="{{ url_for('static', filename='logo.png') }}">
-            <span>PersuasiveChat</span>
+            <span id="typing"></span>
         </a>
-
+ <div class="top_menu">
+    <div class="is_typing">
+      <span id="user-is-typing" style="width:750px;display: block;"></span>
+    </div>
+    </div>
 
     </div>
+
 {% endblock %}
 
 
@@ -22,7 +29,10 @@
 
             <div class="messages">
                 <div class="ui text loader">Loading messages...</div>
+
                 {% include 'chat/messages.html' %}
+
+
             </div>
         </div>
     {% if not current_user.is_admin %}
@@ -99,7 +109,9 @@
 
 {% block scripts %}
     {{ super() }}
+
     <script type="text/javascript">
+     {#window.onbeforeunload=function(){   window.event.returnValue='确认真的要刷新？'   };#}
        var socket = io('/chat');
         var room_id ="{{room_id}}";
         var room_name ="{{room_name}}";
