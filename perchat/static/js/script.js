@@ -206,9 +206,9 @@ $(document).ready(function () {
             e.preventDefault();
             var ans = $('input:radio[name="ans"]:checked').val();
 
-            var stance = user_stance;
+            // var stance = user_stance;
 
-            if(isShow===1 && stance!==-1){
+            if(isShow==1 ){
             socket.emit('check', message_body,room_id);
 
             }else{

@@ -637,7 +637,6 @@ def new_message(message_body, persuasive, room_id, isShow):
               'nickname': current_user.nickname,
               'user_id': current_user.id,'user_stance':current_user.stance},
              broadcast=True, room=room_id)
-        # print(current_user.stance)
 
         if needchat:
             getChatbotText(room_id, message_body, isShow)
