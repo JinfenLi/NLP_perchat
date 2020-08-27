@@ -114,7 +114,7 @@ class Message(db.Model):
     persuasive = db.Column(db.Integer, nullable=True)
 
     # 0:legal,1:illegal
-    stance = db.Column(db.Integer,nullable=True)
+    stance = db.Column(db.Integer,nullable=False, default=-1)
     revised_messages = db.relationship('Revised_Message', back_populates='messages',cascade="all, delete-orphan")
 
 class Revised_Message(db.Model):

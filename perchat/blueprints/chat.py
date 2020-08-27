@@ -262,42 +262,41 @@ def delete_message(message_id):
 
 @socketio.on('check', namespace='/chat')
 def check(message_body, room_id):
+
     html_message = to_html(message_body)
-    result = textCheck(html_message)
-    
-    # result = bert_predict.predict(html_message)
+    if current_user.stance == -1:
+        result = -1
+    else:
+        result = textCheck(html_message)
+
     room = Room.query.filter_by(id=room_id).first()
     if room.closed:
         return
-
-    admin = User.query.filter_by(nickname=current_app.config['ADMIN']).first()
-    messages = Message.query.filter_by(room_id=room_id, sender_id=admin.id).all()
-    message_persuasive_count = collections.Counter([m.persuasive for m in messages])
-    if message_persuasive_count.get(0,0)>1:
-        time_delay = 10000
-    else:
-        time_delay = 5000
-
-
-
 
     if result == 1:
         
         emit('check',
              {
                  'result': 1,
-                 'time_delay': time_delay,
                  'message_body': html_message,
                  'gravatar': current_user.gravatar,
                  'nickname': current_user.nickname,
                  'user_id': current_user.id
             
              }, broadcast=True, room=room_id)
-    else:
+    elif result == 0:
         emit('check',
              {
                  'result': 0,
-                 'time_delay': time_delay,
+                 'message_body': html_message,
+                 'gravatar': current_user.gravatar,
+                 'nickname': current_user.nickname,
+                 'user_id': current_user.id
+             }, broadcast=True, room=room_id)
+    else:
+        emit('check',
+             {
+                 'result': -1,
                  'message_body': html_message,
                  'gravatar': current_user.gravatar,
                  'nickname': current_user.nickname,
@@ -364,81 +363,6 @@ def joinroom():
                     })
 
 
-@socketio.on('joined', namespace='/chat')
-def joined(room_id):
-    """Sent by clients when they enter a room.
-    A status message is broadcast to all people in the room."""
-    join_room(room_id)
-    messages=Message.query.filter_by(room_id=room_id).all()
-
-    admin = User.query.filter_by(nickname=current_app.config['ADMIN']).first()
-    if not messages and not current_user.is_admin:
-        message_body = to_html("Hello, how are you doing today? Do you think gay marriage should be legal or illegal?")
-        message = Message( body=message_body, persuasive=-1,
-                          room_id=room_id, sender_id=admin.id)
-
-        db.session.add(message)
-        socketio.sleep(7)
-        db.session.commit()
-        emit('new message',
-             {'message_html': render_template('chat/message.html', message=message, isShow=0),
-              'message_body': message_body,
-              'gravatar': admin.gravatar,
-              'nickname': admin.nickname,
-              'user_id': admin.id, 'user_stance':-1},
-             broadcast=True, room=room_id)
-
-@socketio.on('load message', namespace='/chat')
-def load_message(room_id, timedelay):
-
-    admin = User.query.filter_by(nickname=current_app.config['ADMIN']).first()
-    closed = Room.query.filter_by(id = room_id).first().closed
-    m = Message.query.filter_by(room_id=room_id).all()
-    if m and m[-1].sender == admin:
-        print("yes")
-        return
-    if closed:
-        return
-    socketio.sleep(timedelay)
-    emit('load message',
-         {'load_message_html': render_template('chat/load_message.html', admin=admin)},
-         broadcast=True, room=room_id)
-
-@socketio.on('new message', namespace='/chat')
-def new_message(message_body, persuasive, room_id, isShow):
-    """Sent by a client when the user entered a new message.
-    The message is sent to all people in the room."""
-
-    # emit('message', {'msg': session.get('name') + ':' + message['msg']}, room=room)
-    closed = Room.query.filter_by(id = room_id).first().closed
-    if closed:
-        return
-    else:
-        if current_user.stance == -1:
-            isShow = 0
-        html_message = to_html(message_body)
-        message = Message(sender=current_user._get_current_object(), body=html_message, persuasive=persuasive,
-                          room_id=room_id, sender_id=current_user.id, stance = current_user.stance)
-        db.session.add(message)
-        db.session.commit()
-        mid = message.id
-        revised_message = Revised_Message.query.filter_by(sender_id=current_user.id, room_id=room_id, lock=0).all()
-        if revised_message:
-            for rm in revised_message:
-                rm.lock = 1
-                rm.message_id = mid
-                db.session.add(rm)
-            db.session.commit()
-
-        emit('new message',
-             {'message_html': render_template('chat/message.html', message=message, isShow=int(isShow)),
-              'message_body': html_message,
-              'gravatar': current_user.gravatar,
-              'nickname': current_user.nickname,
-              'user_id': current_user.id,'user_stance':current_user.stance},
-             broadcast=True, room=room_id)
-
-
 @socketio.on('chatbot', namespace='/chat')
 def getChatbotText(room_id,message_body,isShow):
 
@@ -450,23 +374,62 @@ def getChatbotText(room_id,message_body,isShow):
         stance = judge_stance(message_body)
         # print(stance)
         if stance == -1:
-            message_body = to_html("Could you first tell me that gay marriage is legal or illegal?")
-            message = Message(body=message_body, persuasive=-1,
-                              room_id=room_id, sender_id=admin.id)
+            admin = User.query.filter_by(nickname=current_app.config['ADMIN']).first()
+            admin_m = Message.query.filter_by(room_id=room_id, sender=admin).all()
+            if admin_m:
+                socketio.sleep(3)
 
-            db.session.add(message)
+                emit('load message',
+                     {'load_message_html': render_template('chat/load_message.html', admin=admin)},
+                     broadcast=True, room=room_id)
+                message_body = to_html("Could you first tell me that gay marriage is legal or illegal?")
+                message = Message(body=message_body, persuasive=-1,
+                                  room_id=room_id, sender_id=admin.id)
 
-            # message = to_html("Hello, how are you doing today?")
-            socketio.sleep(2)
-            db.session.commit()
-            emit('new message',
-                 {'message_html': render_template('chat/message.html', message=message, isShow=0),
-                  'message_body': message_body,
-                  'gravatar': admin.gravatar,
-                  'nickname': admin.nickname,
-                  'user_id': admin.id,'user_stance':-1},
-                 broadcast=True, room=room_id)
+                db.session.add(message)
+
+                # message = to_html("Hello, how are you doing today?")
+                socketio.sleep(5)
+                db.session.commit()
+                emit('new message',
+                     {'message_html': render_template('chat/message.html', message=message, isShow=0),
+                      'isRemove': 1,
+                      'message_body': message_body,
+                      'gravatar': admin.gravatar,
+                      'nickname': admin.nickname,
+                      'user_id': admin.id,'user_stance':-1},
+                     broadcast=True, room=room_id)
+        elif stance == 3:
+            admin = User.query.filter_by(nickname=current_app.config['ADMIN']).first()
+            admin_m = Message.query.filter_by(room_id=room_id, sender=admin).all()
+            if admin_m:
+                socketio.sleep(3)
+
+                emit('load message',
+                     {'load_message_html': render_template('chat/load_message.html', admin=admin)},
+                     broadcast=True, room=room_id)
+                message_body = to_html("Could you choose either legal or illegal?")
+                message = Message(body=message_body, persuasive=-1,
+                                  room_id=room_id, sender_id=admin.id)
+
+                db.session.add(message)
+
+                # message = to_html("Hello, how are you doing today?")
+                socketio.sleep(5)
+                db.session.commit()
+                emit('new message',
+                     {'message_html': render_template('chat/message.html', message=message, isShow=0),
+                      'isRemove': 1,
+                      'message_body': message_body,
+                      'gravatar': admin.gravatar,
+                      'nickname': admin.nickname,
+                      'user_id': admin.id, 'user_stance': -1},
+                     broadcast=True, room=room_id)
         else:
+            socketio.sleep(3)
+            emit('load message',
+                 {'load_message_html': render_template('chat/load_message.html', admin=admin)},
+                 broadcast=True, room=room_id)
             current_user.stance = stance
 
             db.session.add(current_user)
@@ -486,11 +449,12 @@ def getChatbotText(room_id,message_body,isShow):
             db.session.add(message)
 
 
-            socketio.sleep(10)
+            socketio.sleep(16)
             db.session.commit()
 
             emit('new message',
                  {'message_html': render_template('chat/message.html', message=message, isShow=0),
+                  'isRemove': 1,
                   'message_body': message_body,
                   'gravatar': admin.gravatar,
                   'nickname': admin.nickname,
@@ -499,13 +463,18 @@ def getChatbotText(room_id,message_body,isShow):
                  broadcast=True, room=room_id)
 
     else:
-        html_message = to_html(message_body)
         room = Room.query.filter_by(id=room_id).first()
         messages = Message.query.filter_by(room_id=room_id,sender_id = admin.id).all()
-        message_text = [m.body for m in messages]
         message_persuasive_count = collections.Counter([m.persuasive for m in messages])
 
-
+        # user_messages = Message.query.filter_by(room_id=room_id).all()
+        # if len(user_messages)>2 and user_messages[-2].sender == current_user and user_messages[-1].sender == current_user:
+        #
+        #     # socketio.sleep(4)
+        #     # emit('load message',
+        #     #      {'load_message_html': render_template('chat/load_message.html', admin=admin)},
+        #     #      broadcast=True, room=room_id)
+        #     return
 
 
         if room.closed:
@@ -513,20 +482,26 @@ def getChatbotText(room_id,message_body,isShow):
             return redirect(url_for('chat.home'))
 
         elif message_persuasive_count.get(1,0) >1:
-            room.closed = True
-            db.session.add(room)
-            db.session.commit()
+            socketio.sleep(10)
 
+            emit('load message',
+                 {'load_message_html': render_template('chat/load_message.html', admin=admin)},
+                 broadcast=True, room=room_id)
             html_chatbottext = to_html("Great! Anyway, it’s great talking to you! I think time is up? See you~~")
             message = Message(sender=admin, body=html_chatbottext, persuasive=-1,
                               room_id=room_id, sender_id=admin.id,
                               stance=1 - current_stance if 1 - current_stance in [0, 1] else -1)
             db.session.add(message)
 
-            socketio.sleep(10)
+            socketio.sleep(20)
+
+            db.session.commit()
+            room.closed = 1
+            db.session.add(room)
             db.session.commit()
             emit('new message',
                  {'message_html': render_template('chat/message.html', message=message, isShow=int(isShow)),
+                  'isRemove': 1,
                   'message_body': html_chatbottext,
                   'gravatar': admin.gravatar,
                   'nickname': admin.nickname,
@@ -534,12 +509,14 @@ def getChatbotText(room_id,message_body,isShow):
                  broadcast=True, room=room_id)
 
         else:
-
-
+            socketio.sleep(15)
+            emit('load message',
+                 {'load_message_html': render_template('chat/load_message.html', admin=admin)},
+                 broadcast=True, room=room_id)
             chatbottext,persuasive, time_delay = getFixAnswer(message_body, current_stance,message_persuasive_count)
             html_chatbottext = to_html(chatbottext)
             message = Message(sender=admin, body=html_chatbottext, persuasive=persuasive,
-                              room_id=room_id, sender_id=admin.id, stance = 1-current_stance if 1-current_stance in [0,1] else 1)
+                              room_id=room_id, sender_id=admin.id, stance = 1-current_stance if 1-current_stance in [0,1] else -1)
             db.session.add(message)
 
             # emit('load message',
@@ -549,27 +526,124 @@ def getChatbotText(room_id,message_body,isShow):
             db.session.commit()
             emit('new message',
                  {'message_html': render_template('chat/message.html', message=message, isShow=int(isShow)),
+                  'isRemove': 1,
                   'message_body': html_chatbottext,
                   'gravatar': admin.gravatar,
                   'nickname': admin.nickname,
                   'user_id': admin.id, 'user_stance':current_stance},
                  broadcast=True, room=room_id)
-            # if 1 in message_persuasive_count and message_persuasive_count[1]+1 > 1:
-            #     message_body = to_html("What is your opinion now?")
-            #     message = Message(body=message_body, persuasive=-1,
-            #                       room_id=room_id, sender_id=admin.id)
-            #
-            #     db.session.add(message)
-            #     db.session.commit()
-            #
-            #     socketio.sleep(4)
-            #     emit('new message',
-            #          {'message_html': render_template('chat/message.html', message=message, isShow=0),
-            #           'message_body': message_body,
-            #           'gravatar': admin.gravatar,
-            #           'nickname': admin.nickname,
-            #           'user_id': admin.id,'user_stance':current_stance},
-            #          broadcast=True, room=room_id)
+
+@socketio.on('joined', namespace='/chat')
+def joined(room_id):
+    """Sent by clients when they enter a room.
+    A status message is broadcast to all people in the room."""
+    join_room(room_id)
+    messages=Message.query.filter_by(room_id=room_id).all()
+
+    admin = User.query.filter_by(nickname=current_app.config['ADMIN']).first()
+    room = Room.query.filter_by(id=room_id).first()
+    if current_user.is_admin:
+        return
+    if not messages:
+        # socketio.sleep(2)
+        # emit('load message',
+        #      {'load_message_html': render_template('chat/load_message.html', admin=admin)},
+        #      broadcast=True, room=room_id)
+        message_body = to_html("Hello, how are you doing today? Do you think gay marriage should be legal or illegal?")
+        message = Message( body=message_body, persuasive=-1,
+                          room_id=room_id, sender_id=admin.id)
+
+        db.session.add(message)
+        socketio.sleep(11)
+        db.session.commit()
+        emit('new message',
+             {'message_html': render_template('chat/message.html', message=message, isShow=0),
+              'isRemove':1,
+              'message_body': message_body,
+              'gravatar': admin.gravatar,
+              'nickname': admin.nickname,
+              'user_id': admin.id, 'user_stance':-1},
+             broadcast=True, room=room_id)
+    else:
+        getChatbotText(room_id, '', room.isShow)
+
+@socketio.on('load message', namespace='/chat')
+def load_message(room_id):
+
+    admin = User.query.filter_by(nickname=current_app.config['ADMIN']).first()
+    closed = Room.query.filter_by(id = room_id).first().closed
+    m = Message.query.filter_by(room_id=room_id).all()
+    admin_m = Message.query.filter_by(room_id=room_id, sender=admin).all()
+    if m and m[-1].sender == admin or current_user.is_admin:
+        return
+    if closed:
+        return
+
+    socketio.sleep(4)
+
+    emit('load message',
+         {'load_message_html': render_template('chat/load_message.html', admin=admin)},
+         broadcast=True, room=room_id)
+
+
+
+
+
+@socketio.on('new message', namespace='/chat')
+def new_message(message_body, persuasive, room_id, isShow):
+    """Sent by a client when the user entered a new message.
+    The message is sent to all people in the room."""
+
+    # emit('message', {'msg': session.get('name') + ':' + message['msg']}, room=room)
+    closed = Room.query.filter_by(id = room_id).first().closed
+    if closed:
+        return
+    else:
+
+        if current_user.stance == -1:
+            isShow = 0
+        html_message = to_html(message_body)
+        message = Message(sender=current_user._get_current_object(), body=html_message, persuasive=persuasive,
+                          room_id=room_id, sender_id=current_user.id, stance = current_user.stance)
+        db.session.add(message)
+        db.session.commit()
+
+        needchat = 1
+        # print("shouldn't")
+        user_messages = Message.query.filter_by(room_id=room_id).all()
+        # print([um.sender_id for um in user_messages])
+        admin = User.query.filter_by(nickname=current_app.config['ADMIN']).first()
+        admin_messages = Message.query.filter_by(room_id=room_id, sender=admin).all()
+        if (len(user_messages) > 2 and user_messages[-2].sender == current_user and user_messages[
+            -1].sender == current_user) or (not admin_messages) or (len(user_messages) > 2 and user_messages[-2].sender == admin and user_messages[
+            -1].sender == admin):
+            needchat = 0
+            # print("shoud remove")
+
+        mid = message.id
+        revised_message = Revised_Message.query.filter_by(sender_id=current_user.id, room_id=room_id, lock=0).all()
+        if revised_message:
+            for rm in revised_message:
+                rm.lock = 1
+                rm.message_id = mid
+                db.session.add(rm)
+            db.session.commit()
+
+        emit('new message',
+             {'message_html': render_template('chat/message.html', message=message, isShow=int(isShow)),
+              'isRemove': 0,
+              'message_body': html_message,
+              'gravatar': current_user.gravatar,
+              'nickname': current_user.nickname,
+              'user_id': current_user.id,'user_stance':current_user.stance},
+             broadcast=True, room=room_id)
+        # print(current_user.stance)
+
+        if needchat:
+            getChatbotText(room_id, message_body, isShow)
+
+
+
 
 
 

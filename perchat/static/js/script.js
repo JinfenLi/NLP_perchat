@@ -64,7 +64,10 @@ $(document).ready(function () {
     if (typeof socket!=="undefined") {
 
         socket.on('new message', function (data) {
-            $('.msg-box-load').remove();
+            if (data.isRemove===1){
+                $('.msg-box-load').remove();
+            }
+
             user_stance = data.user_stance;
             message_count++;
             if (!document.hasFocus()) {
@@ -83,11 +86,19 @@ $(document).ready(function () {
 
     if (typeof socket!=="undefined") {
         socket.on('load message', function (data) {
+            if(!$("#div").hasClass('msg-box-load')){
+                setTimeout(function () {
+
+                     $('.messages').append(data.load_message_html);
+                        scrollToBottom();
+                        activateSemantics();
 
 
-            $('.messages').append(data.load_message_html);
-            scrollToBottom();
-            activateSemantics();
+                },1000);
+            }
+
+
+
         });
     }
 
@@ -102,39 +113,47 @@ $(document).ready(function () {
         if (data.user_id === current_user_id) {
 
 
-            if (data.result) {
+            if (data.result===1) {
+                // if($("#div").hasClass('msg-box-load')){
+                //     socket.emit('new message', quote+data.message_body, 1,room_id,isShow);
+                //     $textarea.val('');
+                //     $("#quote").text('');
+                //     $('#deletequote').hide();
+                //
+                //     socket.emit('load message', room_id);
+                // }else{
+                    socket.emit('new message', quote+data.message_body, 1,room_id,isShow);
+                    $textarea.val('');
+                    $("#quote").text('');
+                    $('#deletequote').hide();
+                // }
 
-                socket.emit('new message', quote+data.message_body, 1,room_id,isShow);
-                $textarea.val('');
-                $("#quote").text('');
-                $('#deletequote').hide();
 
-                // setTimeout(function(){
-                socket.emit('load message', room_id, 30);
-                // }, 3000);
-                // setTimeout(function(){
 
-                socket.emit('chatbot', room_id,quote+data.message_body, isShow);
-                // }, data.time_delay);
+                // socket.emit('chatbot', room_id,quote+data.message_body, isShow);
 
 
 
             }
-            else {
+            else if(data.result===0) {
 
                 if (confirm("your message is not persuasive, are you sure to send it?")) {
-                    socket.emit('new message', quote+data.message_body, 0,room_id,isShow);
-                    $textarea.val('');
-                    $("#quote").text('');
-                    $('#deletequote').hide();
-                    // setTimeout(function(){
-                socket.emit('load message', room_id, 30);
-                // }, 3000);
+                    // if($("#div").hasClass('msg-box-load')){
+                    //     socket.emit('new message', quote+data.message_body, 0,room_id,isShow);
+                    //     $textarea.val('');
+                    //     $("#quote").text('');
+                    //     $('#deletequote').hide();
+                    //
+                    //     socket.emit('load message', room_id);
+                    // }else{
+                        socket.emit('new message', quote+data.message_body, 0,room_id,isShow);
+                        $textarea.val('');
+                        $("#quote").text('');
+                        $('#deletequote').hide();
 
-                    // setInterval(function(){
+                    // }
 
-                socket.emit('chatbot', room_id,quote+data.message_body, isShow);
-                // }, 60000);
+                // socket.emit('chatbot', room_id,quote+data.message_body, isShow);
 
 
 
@@ -154,6 +173,23 @@ $(document).ready(function () {
                     });
                 }
             }
+            else{
+                // if($("#div").hasClass('msg-box-load')){
+                //     socket.emit('new message', quote+data.message_body, -1,room_id,0);
+                //     $textarea.val('');
+                //     $("#quote").text('');
+                //     $('#deletequote').hide();
+                //
+                //     socket.emit('load message', room_id);
+                // }else{
+                    socket.emit('new message', quote+data.message_body, -1,room_id,0);
+                    $textarea.val('');
+                    $("#quote").text('');
+                    $('#deletequote').hide();
+
+                // }
+                // socket.emit('chatbot', room_id,quote+data.message_body, 0);
+            }
         }
 
                     });
@@ -172,19 +208,31 @@ $(document).ready(function () {
 
             var stance = user_stance;
 
-            if(isShow==1 && stance!==-1){
+            if(isShow===1 && stance!==-1){
             socket.emit('check', message_body,room_id);
 
             }else{
 
-                socket.emit('new message', quote+message_body, -1,room_id,isShow);
-                $textarea.val('');
-                $("#quote").text('');
-                $('#deletequote').hide();
-                // setTimeout(function () {
-                socket.emit('load message', room_id, 30);
-            socket.emit('chatbot', room_id,quote+message_body, isShow);
-                // }, 10000);
+                if($("#div").hasClass('msg-box-load')){
+
+                    socket.emit('new message', quote+message_body, -1,room_id,isShow);
+                    $textarea.val('');
+                    $("#quote").text('');
+                    $('#deletequote').hide();
+                    socket.emit('load message', room_id);
+                }
+                else{
+
+                    socket.emit('new message', quote+message_body, -1,room_id,isShow);
+                    $textarea.val('');
+                    $("#quote").text('');
+                    $('#deletequote').hide();
+                }
+
+
+
+            // socket.emit('chatbot', room_id,quote+message_body, isShow);
+
 
 
             }
@@ -579,7 +627,7 @@ $(document).ready(function () {
             if (room_id.length>0){
                 var time_delay = 1;
                 if(!$("#div").hasClass('msg-box-load')){
-                     socket.emit('load message', room_id, 1);
+                     socket.emit('load message', room_id);
                    }
 
                 socket.emit('joined', room_id);

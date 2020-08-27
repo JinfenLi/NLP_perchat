@@ -319,14 +319,14 @@ def register_commands(app):
 
         click.echo('Generating users...')
         users = []
-        for i in range(201):
-            user = User(nickname='user' + str(i+1),
+        for i in range(201, 403):
+            user = User(nickname='user' + str(i),
                         bio='',
                         github='',
                         website='',
                         email='user' + str(i+1)+'@qq.com'
                         )
-            if i==200:
+            if i==201:
                 user.set_password('admin')
             else:
                 user.set_password('12345')
@@ -348,7 +348,7 @@ def register_commands(app):
                      143,146,150,151,153,154,155,156,158,159,162,163,166,167,168,169,170,172,174,175,176,186,188,191,194,196,197,198,199,200]:
 
                 room = Room(
-                    name='08-27--A-user'+str(i+1),
+                    name='08-27--A-user'+str(i),
                     description='',
                     owner='user201',
                     room_type=0,
@@ -358,14 +358,14 @@ def register_commands(app):
                 )
             else:
                 room = Room(
-                    name='08-27--B-user'+str(i+1),
+                    name='08-27--B-user'+str(i),
                     description='',
                     owner='user201',
                     room_type=0,
                     isShow=0
 
                 )
-            common_user = User.query.filter_by(nickname='user'+str(i+1)).first()
+            common_user = User.query.filter_by(nickname='user'+str(i)).first()
             admin_user = User.query.filter_by(nickname='user201').first()
             db.session.add(room)
             db.session.commit()

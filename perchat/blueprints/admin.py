@@ -147,7 +147,7 @@ def downloadmessages():
         pure_text = html2text.html2text(html_body)
         create_time= m.timestamp
         sender = m.sender.nickname
-        stance = 'illegal' if m.stance else 'legal' if m.stance==0 else 'not assigned'
+        stance = 'illegal' if m.stance==1 else 'legal' if m.stance==0 else 'not assigned'
         if room.room_type:
 
             allusers = User_Has_Room.query.filter_by(room_id=room.id).all()
