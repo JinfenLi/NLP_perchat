@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="aa7a9509-edec-4d77-8b3f-be1563e29f58" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data.db" beforeDir="false" afterPath="$PROJECT_DIR$/data.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perchat/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/perchat/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/perchat/templates/chat/admin_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/perchat/templates/chat/admin_home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +218,7 @@
       <workItem from="1598926828614" duration="168000" />
       <workItem from="1599012626108" duration="2382000" />
       <workItem from="1599175441925" duration="1034000" />
-      <workItem from="1599345762980" duration="487000" />
+      <workItem from="1599345762980" duration="1526000" />
     </task>
     <servers />
   </component>
@@ -260,6 +259,10 @@
     <state width="1398" height="244" key="GridCell.Tab.0.right/0.0.1440.900/1440.0.1440.2560@0.0.1440.900" timestamp="1595633219536" />
     <state width="1398" height="231" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1599080682927" />
     <state width="1398" height="231" key="GridCell.Tab.0.right/0.23.1440.794@0.23.1440.794" timestamp="1599165289445" />
+    <state x="312" y="145" width="816" height="550" key="find.popup" timestamp="1599348452676">
+      <screen x="0" y="23" width="1440" height="794" />
+    </state>
+    <state x="312" y="145" width="816" height="550" key="find.popup/0.23.1440.794/1440.23.1440.2537@0.23.1440.794" timestamp="1599348452676" />
     <state x="385" y="112" width="670" height="676" key="search.everywhere.popup" timestamp="1598257952986">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -267,6 +270,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/perchat$wh.coverage" NAME="wh Coverage Results" MODIFIED="1589255359022" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/perchat/blueprints" />
-    <SUITE FILE_PATH="coverage/perchat$perchat.coverage" NAME="perchat Coverage Results" MODIFIED="1599080682917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/perchat$perchat.coverage" NAME="perchat Coverage Results" MODIFIED="1599346939709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
