@@ -319,7 +319,7 @@ def register_commands(app):
 
         click.echo('Generating users...')
         users = []
-        for i in range(201, 403):
+        for i in range(79, 202):
             user = User(nickname='user' + str(i),
                         bio='',
                         github='',
@@ -342,13 +342,13 @@ def register_commands(app):
         click.echo('Generating rooms...')
         rooms = []
         # click.echo(messages)
-        for i in range(202, 403):
-            if i-201 in [1,2,3,5,8,9,10,11,12,14,15,18,20,26,27,28,30,32,33,36,39,41,43,46,50,52,57,58,65,66,67,68,69,71,72,73,75,77,78,79,82,83,84,
+        for i in range(79, 201):
+            if i in [1,2,3,5,8,9,10,11,12,14,15,18,20,26,27,28,30,32,33,36,39,41,43,46,50,52,57,58,65,66,67,68,69,71,72,73,75,77,78,79,82,83,84,
                      89,90,92,93,94,95,96,97,98,99,101,102,103,104,107,109,110,111,116,117,118,119,120,122,125,126,128,129,130,131,133,137,138,139,
                      143,146,150,151,153,154,155,156,158,159,162,163,166,167,168,169,170,172,174,175,176,186,188,191,194,196,197,198,199,200]:
 
                 room = Room(
-                    name='08-27--A-user'+str(i),
+                    name='09-01--A-user'+str(i),
                     description='',
                     owner='user201',
                     room_type=0,
@@ -358,7 +358,7 @@ def register_commands(app):
                 )
             else:
                 room = Room(
-                    name='08-27--B-user'+str(i),
+                    name='09-01--B-user'+str(i),
                     description='',
                     owner='user201',
                     room_type=0,
