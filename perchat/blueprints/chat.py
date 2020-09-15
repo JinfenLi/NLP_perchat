@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-
+"""
+    :author: Jinfen Li
+    :url: https: // github.com / LiJinfen
+"""
 from flask import render_template, redirect, url_for, request, Blueprint, current_app, abort, session, jsonify
 from flask_login import current_user, login_required
 from flask_socketio import emit, join_room, leave_room

@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    :author: Grey Li (李辉)
-    :url: http://greyli.com
-    :copyright: © 2018 Grey Li <withlihui@gmail.com>
-    :license: MIT, see LICENSE for more details.
+    :author: Jinfen Li
+    :url: https: // github.com / LiJinfen
 """
 from flask import Blueprint, abort,request,url_for,jsonify,render_template,send_from_directory
 from flask_login import current_user,login_required
