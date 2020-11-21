@@ -1,6 +1,7 @@
 # perchat
 
-*Chatroom for coders*
+*Chatroom for users*
+> This is a chatroom for multiple users. There are two modes in the chatroom including the persuasion ignorance mode and persuasion awareness mode. In the persuasion awareness mode, the website will detect the persuasion of messages from users and show an alert to them. They could either directly send their messages to others or revise their messages. While in the other mode, users won't have such alerts and chat smoothly. Our goal is to test whether users have different behaviours in such two environments.
 
 > Example application for *[Python Web Development with Flask](https://perchat.herokuapp.com/)*.
 
